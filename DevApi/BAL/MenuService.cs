@@ -1,0 +1,60 @@
+﻿using Azure.Core;
+using Dapper;
+using DevApi.Models.Common;
+using MyApp.Models;
+using MyApp.Models.Common;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MyApp.BAL
+{
+    public class MenuService
+    {
+
+
+        public CommonResponseDto<List<UserMenuDto>> GetUserMenuList(CommonRequestDto<UserMenuReq> commonRequest)
+        {
+            var response = new CommonResponseDto<List<UserMenuDto>>();
+            string proc = "Proc_Menu";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 1);
+            queryParameter.Add("@userId", commonRequest.UserId);
+            var res = DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
+        
+        public CommonResponseDto< List<MenuDto>> GetMenuList(CommonRequestDto commonRequest)
+        {
+            var response = new CommonResponseDto<List<MenuDto>>();
+            string proc = "Proc_Menu";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 3);
+            var res = DBHelperDapper.GetResponseModelList<MenuDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
+        public CommonResponseDto< ValidationMessageDto> AddService(CommonRequestDto<List<UserMenuAddReq>> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_Menu";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 2);
+            queryParameter.Add("@CreatedBy", commonRequest.UserId);
+            queryParameter.Add("@UserMenuJson",
+              Newtonsoft.Json.JsonConvert.SerializeObject(commonRequest.Data));
+            var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
+    }
+}
