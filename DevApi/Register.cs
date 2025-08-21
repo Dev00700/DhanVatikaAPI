@@ -13,6 +13,7 @@ namespace DevApi
             services.AddTransient<LoginService>();
             services.AddTransient<MenuService>();
             services.AddTransient<DropDownService>();
+            services.AddTransient<UserService>();
          
         }
     }

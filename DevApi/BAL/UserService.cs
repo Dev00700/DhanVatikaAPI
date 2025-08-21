@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace MyApp.BAL
 {
-    public static class UserService
+    public  class UserService
     {
-        public static CommonResponseDto<List<UserDto>> GetUserList()
+        public async Task<CommonResponseDto<List<UserDto>>> GetListService()
         {
-            var response = new CommonResponseDto<List<UserDto>>();
+            var response = new CommonResponseDto<List<UserDto>>( );
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
-            queryparameter.Add("@ProcId", 2);
+            queryparameter.Add("@ProcId", 3);
             var res = DBHelperDapper.GetResponseModelList<UserDto>(_proc, queryparameter);
             response.Data = res;
             response.Flag = 1;
@@ -24,19 +24,20 @@ namespace MyApp.BAL
             return response;
         }
 
-        public static CommonResponseDto<ValidationMessageDto> SaveUser(UserDto user)
+        public async Task<CommonResponseDto<ValidationMessageDto>> AddService(CommonRequestDto<UserDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
             queryparameter.Add("@ProcId", 1);
-            queryparameter.Add("@UserCode", user.UserCode);
-            queryparameter.Add("@UserName", user.UserName);
-            queryparameter.Add("@Email", user.Email);
-            queryparameter.Add("@Mobile", user.MobileNo);
-            queryparameter.Add("@password", Crypto.Encrypt(user.Password));
-            queryparameter.Add("@IsActive", user.IsActive);
-            queryparameter.Add("@createdBy", SessionManager.UserId);
+            queryparameter.Add("@UserName", commonRequest.Data.UserName);
+            queryparameter.Add("@Email", commonRequest.Data.Email);
+            queryparameter.Add("@MobileNo", commonRequest.Data.MobileNo);
+            queryparameter.Add("@RoleId", commonRequest.Data.RoleId);
+            queryparameter.Add("@password", Crypto.Encrypt(commonRequest.Data.Password));
+            queryparameter.Add("@IsActive", commonRequest.Data.IsActive);
+            queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
+            queryparameter.Add("@createdBy", commonRequest.Data.UserId);
             CommonFunction.Printparameter(queryparameter, "User paramer for saving:");//FOR WRITE LOG'
             var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
@@ -45,13 +46,13 @@ namespace MyApp.BAL
             return response;
         }
 
-        public static CommonResponseDto<UserDto> GetUser(string userguid)
+        public async Task<CommonResponseDto<UserDto>> GetUser(CommonRequestDto<UserReqDto> commonRequest)
         {
             var response = new CommonResponseDto<UserDto>();
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
-            queryparameter.Add("@ProcId", 3);
-            queryparameter.Add("@UserGuid", userguid);
+            queryparameter.Add("@ProcId", 4);
+            queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "Get User:");//FOR WRITE LOG'
             var res = DBHelperDapper.GetAddRespinseModel<UserDto>(_proc, queryparameter);
             if (res != null)
@@ -70,20 +71,21 @@ namespace MyApp.BAL
             return response;
         }
 
-        public static CommonResponseDto<ValidationMessageDto> UpdateUser(UserDto user)
+        public async Task<CommonResponseDto<ValidationMessageDto>> UpdateService(CommonRequestDto<UserDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
-            queryparameter.Add("@ProcId", 4);
-            queryparameter.Add("@UserCode", user.UserCode);
-            queryparameter.Add("@UserName", user.UserName);
-            queryparameter.Add("@Email", user.Email);
-            queryparameter.Add("@Mobile", user.MobileNo);
-            queryparameter.Add("@password", user.Password);
-            queryparameter.Add("@createdBy", SessionManager.UserId);
-            queryparameter.Add("@IsActive", user.IsActive);
-            queryparameter.Add("@UserGuid", user.UserGuid);
+            queryparameter.Add("@ProcId", 2);
+            queryparameter.Add("@UserName", commonRequest.Data.UserName);
+            queryparameter.Add("@Email", commonRequest.Data.Email);
+            queryparameter.Add("@MobileNo", commonRequest.Data.MobileNo);
+            queryparameter.Add("@password", Crypto.Encrypt(commonRequest.Data.Password));
+            queryparameter.Add("@RoleId", commonRequest.Data.RoleId);
+            queryparameter.Add("@createdBy", commonRequest.Data.UserId);
+            queryparameter.Add("@IsActive", commonRequest.Data.IsActive);
+            queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
+            queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "User paramer for updating:");//FOR WRITE LOG'
             var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;

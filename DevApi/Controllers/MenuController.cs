@@ -20,21 +20,21 @@ namespace DevApi.Controllers
         }
 
         [HttpPost("GetUserMenuListService")]
-        public ActionResult<List<UserMenuDto>> GetUserMenuList([FromBody] CommonRequestDto<UserMenuReq> commonRequestDto)
+        public async Task<ActionResult<List<UserMenuDto>>> GetUserMenuList([FromBody] CommonRequestDto<UserMenuReq> commonRequestDto)
         {
-            var list = menuService.GetUserMenuList(commonRequestDto);
+            var list =await menuService.GetUserMenuList(commonRequestDto);
             return Ok(list);
         }
         [HttpPost("GetMenuListService")]
-        public ActionResult<List<UserMenuDto>> GetMenuList([FromBody] CommonRequestDto commonRequestDto)
+        public async Task<ActionResult<List<UserMenuDto>>> GetMenuList([FromBody] CommonRequestDto commonRequestDto)
         {
-            var list = menuService.GetMenuList(commonRequestDto);
+            var list =await menuService.GetMenuList(commonRequestDto);
             return Ok(list);
         }
         [HttpPost("AddMenuService")]
-        public ActionResult<List<UserMenuDto>> MenuAddService([FromBody] CommonRequestDto<List<UserMenuAddReq>> commonRequestDto)
+        public async Task<ActionResult<List<UserMenuDto>>> MenuAddService([FromBody] CommonRequestDto<List<UserMenuAddReq>> commonRequestDto)
         {
-            var list = menuService.AddService(commonRequestDto);
+            var list =await menuService.AddService(commonRequestDto);
             return Ok(list);
         }
     }

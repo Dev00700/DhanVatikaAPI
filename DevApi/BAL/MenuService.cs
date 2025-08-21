@@ -15,7 +15,7 @@ namespace MyApp.BAL
     {
 
 
-        public CommonResponseDto<List<UserMenuDto>> GetUserMenuList(CommonRequestDto<UserMenuReq> commonRequest)
+        public async Task<CommonResponseDto<List<UserMenuDto>>> GetUserMenuList(CommonRequestDto<UserMenuReq> commonRequest)
         {
             var response = new CommonResponseDto<List<UserMenuDto>>();
             string proc = "Proc_Menu";
@@ -28,8 +28,8 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
-        
-        public CommonResponseDto< List<MenuDto>> GetMenuList(CommonRequestDto commonRequest)
+
+        public async Task<CommonResponseDto< List<MenuDto>>> GetMenuList(CommonRequestDto commonRequest)
         {
             var response = new CommonResponseDto<List<MenuDto>>();
             string proc = "Proc_Menu";
@@ -41,7 +41,7 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
-        public CommonResponseDto< ValidationMessageDto> AddService(CommonRequestDto<List<UserMenuAddReq>> commonRequest)
+        public async Task<CommonResponseDto< ValidationMessageDto>> AddService(CommonRequestDto<List<UserMenuAddReq>> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string proc = "Proc_Menu";

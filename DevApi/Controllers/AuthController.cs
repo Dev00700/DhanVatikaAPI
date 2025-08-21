@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("UserLogin")]
-    public UserResponseDto Login([FromBody] UserReqDto userLogin)
+    public UserResponseDto Login([FromBody] UserLogin userLogin)
     {
         // Validate user credentials (this should check against a database)
         var e = loginService.Login(userLogin.UserName, userLogin.Password);
