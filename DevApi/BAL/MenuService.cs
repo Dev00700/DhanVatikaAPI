@@ -50,7 +50,7 @@ namespace MyApp.BAL
             queryParameter.Add("@CreatedBy", commonRequest.UserId);
             queryParameter.Add("@UserMenuJson",
               Newtonsoft.Json.JsonConvert.SerializeObject(commonRequest.Data));
-            var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

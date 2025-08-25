@@ -31,7 +31,7 @@ namespace MyApp.Models
        
 
 
-        public static TClass GetAddRespinseModel<TClass>(string _procame, DynamicParameters param)
+        public static TClass GetAddResponseModel<TClass>(string _procame, DynamicParameters param)
         {
             TClass _objMOdel;
             using (SqlConnection con = new SqlConnection(connection()))
@@ -61,6 +61,20 @@ namespace MyApp.Models
                 objConnection.Close();
             }
             return recordList;
+        }
+        public static T GetResponseModel<T>(string spName, DynamicParameters p)
+        {
+            using (SqlConnection objConnection = new SqlConnection(connection()))
+            {
+                objConnection.Open();
+                var record = SqlMapper.QueryFirstOrDefault<T>(
+                    objConnection,
+                    spName,
+                    p,
+                    commandType: System.Data.CommandType.StoredProcedure
+                );
+                return record;
+            }
         }
 
         public static TResponse GetAllModelNew<TRequest, TResponse>(string procName, DynamicParameters param)

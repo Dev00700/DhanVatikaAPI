@@ -14,6 +14,7 @@ namespace DevApi
             services.AddTransient<MenuService>();
             services.AddTransient<DropDownService>();
             services.AddTransient<UserService>();
+            services.AddTransient<IncommingPaymentService>();
          
         }
     }

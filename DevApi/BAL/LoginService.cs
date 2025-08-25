@@ -31,7 +31,7 @@ namespace MyApp.BAL
             queryparameter.Add("@ProcId", 1);
             queryparameter.Add("@UserName", UserName);
             queryparameter.Add("@Password", Crypto.Encrypt(Password));
-            res = DBHelperDapper.GetAddRespinseModel<UserResponseDto>(_proc, queryparameter);
+            res = DBHelperDapper.GetAddResponseModel<UserResponseDto>(_proc, queryparameter);
             if (res != null && res.UserGuid != Guid.Empty)
             {
 

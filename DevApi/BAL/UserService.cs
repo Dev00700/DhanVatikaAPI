@@ -39,7 +39,7 @@ namespace MyApp.BAL
             queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
             queryparameter.Add("@createdBy", commonRequest.Data.UserId);
             CommonFunction.Printparameter(queryparameter, "User paramer for saving:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(_proc, queryparameter);
+            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
             response.Flag = res != null ? res.Flag : 0;
             response.Message = res != null ? res.Message : "Failed to save user.";
@@ -54,7 +54,7 @@ namespace MyApp.BAL
             queryparameter.Add("@ProcId", 4);
             queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "Get User:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddRespinseModel<UserDto>(_proc, queryparameter);
+            var res = DBHelperDapper.GetAddResponseModel<UserDto>(_proc, queryparameter);
             if (res != null)
             {
                 res.Password = Crypto.Decrypt(res.Password);
@@ -87,7 +87,7 @@ namespace MyApp.BAL
             queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
             queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "User paramer for updating:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddRespinseModel<ValidationMessageDto>(_proc, queryparameter);
+            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
             response.Flag = res != null ? res.Flag : 0;
             response.Message = res != null ? "User updated successfully." : "Failed to update user.";
