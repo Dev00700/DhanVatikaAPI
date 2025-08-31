@@ -87,19 +87,19 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<IPaymentDto>>> GetListService()
+        public async Task<CommonResponseDto<List<IPaymentDto>>> GetListService(CommonRequestDto commonRequest)
         {
             var response = new CommonResponseDto<List<IPaymentDto>>();
             string proc = "Proc_IncommingPayment";
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3);
+            queryParameter.Add("@PageNumber", commonRequest.PageSize);
+            queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
 
-            var res = DBHelperDapper.GetResponseModelList<IPaymentDto>(proc, queryParameter);
-            response.Data = res;
-            response.Flag = 1;
-            response.Message = "Success";
-            return response;
+            var res = DBHelperDapper.GetPagedModelList<IPaymentDto>(proc, queryParameter);
+           
+            return res;
         }
 
         public async Task<CommonResponseDto<IPaymentDto>> GetPayment(CommonRequestDto<IPaymentReqDto> commonRequest)

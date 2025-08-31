@@ -56,5 +56,18 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+        public async Task<CommonResponseDto<List<UserMenuDto>>> UserMenuUpdateService(CommonRequestDto<UserMenuReq> commonRequest)
+        {
+            var response = new CommonResponseDto<List<UserMenuDto>>();
+            string proc = "Proc_Menu";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 4);
+            queryParameter.Add("@userId", commonRequest.UserId);
+            var res = DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }

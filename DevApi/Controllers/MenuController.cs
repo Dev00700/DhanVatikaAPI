@@ -37,5 +37,11 @@ namespace DevApi.Controllers
             var list =await menuService.AddService(commonRequestDto);
             return Ok(list);
         }
+        [HttpPost("GetUserMenuForUpdateService")]
+        public async Task<ActionResult<List<UserMenuDto>>> MenuUpdateService([FromBody] CommonRequestDto<UserMenuReq> commonRequestDto)
+        {
+            var list = await menuService.UserMenuUpdateService(commonRequestDto);
+            return Ok(list);
+        }
     }
 }

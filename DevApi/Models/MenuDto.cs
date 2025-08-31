@@ -30,6 +30,7 @@ namespace MyApp.Models
         public string Icon { get; set; }    
         public string  MenuCode { get; set; }
         public int ParentId { get; set; }   
+        public bool? Checked { get; set; }
     }
     public class UserMenuReq
     {
