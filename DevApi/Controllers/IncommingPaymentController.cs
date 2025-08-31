@@ -35,14 +35,14 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("GetPaymentListService")]
-        public async Task<ActionResult<CommonResponseDto<List<IPaymentDto>>>> GetListPayments(CommonRequestDto commonRequest)
+        public async Task<ActionResult<CommonResponseDto<List<IPaymentResponseDto>>>> GetListPayments(CommonRequestDto commonRequest)
         {
             var payments = await paymentService.GetListService(commonRequest);
             return payments;
         }
 
         [HttpPost("GetPaymentService")]
-        public async Task<ActionResult<CommonResponseDto<IPaymentDto>>> GetPayment([FromBody] CommonRequestDto<IPaymentReqDto> request)
+        public async Task<ActionResult<CommonResponseDto<IPaymentResponseDto>>> GetPayment([FromBody] CommonRequestDto<IPaymentReqDto> request)
         {
             var payment = await paymentService.GetPayment(request);
             return payment;

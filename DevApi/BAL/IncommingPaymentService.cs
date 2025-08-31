@@ -87,9 +87,9 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<IPaymentDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<IPaymentResponseDto>>> GetListService(CommonRequestDto commonRequest)
         {
-            var response = new CommonResponseDto<List<IPaymentDto>>();
+            var response = new CommonResponseDto<List<IPaymentResponseDto>>();
             string proc = "Proc_IncommingPayment";
             var queryParameter = new DynamicParameters();
 
@@ -97,22 +97,21 @@ namespace MyApp.BAL
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
 
-            var res = DBHelperDapper.GetPagedModelList<IPaymentDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
            
             return res;
         }
 
-        public async Task<CommonResponseDto<IPaymentDto>> GetPayment(CommonRequestDto<IPaymentReqDto> commonRequest)
+        public async Task<CommonResponseDto<IPaymentResponseDto>> GetPayment(CommonRequestDto<IPaymentReqDto> commonRequest)
         {
-            var response = new CommonResponseDto<IPaymentDto>();
+            var response = new CommonResponseDto<IPaymentResponseDto>();
             string proc = "Proc_IncommingPayment";
             var queryParameter = new DynamicParameters();
-
-            queryParameter.Add("@ProcId", 4);
             var data = commonRequest.Data;
+            queryParameter.Add("@ProcId", 4);
             queryParameter.Add("@IPaymentGuid", data.IPaymentGuid);
 
-            var res = DBHelperDapper.GetResponseModel<IPaymentDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetResponseModel<IPaymentResponseDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

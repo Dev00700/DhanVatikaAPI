@@ -25,6 +25,7 @@ namespace MyApp.Models
         public DateTime? ApproveDateF { get; set; }
         public string? Image { get; set; }
         public string? Remarks { get; set; }
+       
     }
 
     public class IPaymentReqDto
@@ -53,5 +54,7 @@ namespace MyApp.Models
         public DateTime? ApproveDateF { get; set; }
         public string Image { get; set; }
         public string? Remarks { get; set; }
+        public string? PaymentMode { get; set; }
+        public string? PaymentSourceName { get; set; }
     }
 }
