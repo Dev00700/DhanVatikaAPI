@@ -14,5 +14,6 @@ namespace MyApp.Models.Common
     {
         public int? ProcId { get; set; }
         public int? ParentId { get; set; }
+        public string? SearchDDL { get; set; }
     }
 }
