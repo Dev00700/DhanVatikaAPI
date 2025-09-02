@@ -37,7 +37,7 @@ namespace MyApp.BAL
             queryparameter.Add("@password", Crypto.Encrypt(commonRequest.Data.Password));
             queryparameter.Add("@IsActive", commonRequest.Data.IsActive);
             queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
-            queryparameter.Add("@createdBy", commonRequest.Data.UserId);
+            queryparameter.Add("@createdBy", commonRequest.UserId);
             CommonFunction.Printparameter(queryparameter, "User paramer for saving:");//FOR WRITE LOG'
             var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
