@@ -1,5 +1,6 @@
 using System;
 using DevApi.Models.Common;
+using DevApi.Models.Enums;
 using MyApp.Models.Common;
 
 namespace MyApp.Models
@@ -58,6 +59,30 @@ namespace MyApp.Models
         public string? Remarks { get; set; }
         public string? PaymentMode { get; set; }
         public string? PaymentSourceName { get; set; }
+        public string AdminApprover
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(ApprovalStatus), ApproveStatus)
+                    ? ((ApprovalStatus)ApproveStatus).ToString()
+                    : string.Empty;
+            }
+        }
+        public string? AdminName { get; set; }
+        public string? AdminApproveDate { get; set; }
+        public string? AdminApproveRemarks { get; set; }
+        public string SuperAdminApprover
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(ApprovalStatus), ApproveStatusF)
+                    ? ((ApprovalStatus)ApproveStatusF).ToString()
+                    : string.Empty;
+            }
+        }
+        public string? SuperAdminName { get; set; }
+        public string? SuperAdminApproveDate { get; set; }
+        public string? SuperAdminApproveRemarks { get; set; }
     }
 
     public class IPaymentApproveDto

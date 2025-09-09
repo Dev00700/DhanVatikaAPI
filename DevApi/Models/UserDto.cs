@@ -46,6 +46,7 @@ namespace MyApp.Models
         public int RoleId { get; set; }
         public string? Status { get; set; }
         public string? Token { get; set; }
+        public bool? IsSuperAdmin { get; set; }
         
     }
 }

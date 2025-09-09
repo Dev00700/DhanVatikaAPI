@@ -1,7 +1,6 @@
 ﻿namespace DevApi.Models.Enums
 {
-    public class StatusEnum
-    {
+   
         public enum ApprovalStatus
         {
             Pending = 0,
@@ -10,5 +9,5 @@
             Completed = 3,
             Cancelled = 4
         }
-    }
+    
 }
