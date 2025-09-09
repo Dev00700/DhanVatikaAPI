@@ -47,5 +47,41 @@ namespace MyApp.Controllers
             var payment = await paymentService.GetPayment(request);
             return payment;
         }
+
+        [HttpPost("UploadPaymentImages")]
+        public async Task<ActionResult<CommonResponseDto<List<string>>>> UploadPaymentImages([FromForm] List<IFormFile> images)
+        {
+            var imageNames = new List<string>();
+            var imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+            Directory.CreateDirectory(imageFolder);
+
+            CommonResponseDto<List<string>> commonResponseDto =new DevApi.Models.Common.CommonResponseDto<List<string>>();
+
+            foreach (var imageFile in images)
+            {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    var extension = Path.GetExtension(imageFile.FileName);
+                    var imageName = $"{Guid.NewGuid()}{extension}";
+                    var imagePath = Path.Combine(imageFolder, imageName);
+
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    imageNames.Add(imageName);
+                }
+            }
+            commonResponseDto.Data = imageNames;
+            return commonResponseDto;
+        }
+
+        [HttpPost("ApprovePaymentService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> ApprovedPayment([FromBody] CommonRequestDto<IPaymentApproveDto> request)
+        {
+            var result = await paymentService.UpdatePaymentService(request);
+            return result;
+        }
     }
 }

@@ -7,6 +7,7 @@ using MyApp.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -23,15 +24,15 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("UserLogin")]
-    public UserResponseDto Login([FromBody] UserLogin userLogin)
+    public async Task<UserResponseDto> Login([FromBody] UserLogin userLogin)
     {
         // Validate user credentials (this should check against a database)
-        var e = loginService.Login(userLogin.UserName, userLogin.Password);
+        var e =await loginService.Login(userLogin.UserName, userLogin.Password);
 
         return e;
     }
     [HttpPost("EncryptD")]
-    public string Encrypt([FromBody] CommonRequestDto<string> commonRequestDto)
+    public async Task<string> Encrypt([FromBody] CommonRequestDto<string> commonRequestDto)
     {
         var e = loginService.Encrypt(commonRequestDto.Data);
         return e;

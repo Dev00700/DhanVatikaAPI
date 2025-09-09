@@ -24,34 +24,35 @@ namespace MyApp.Models
             }
         }
 
-        
-
-     
-
-       
 
 
-        public static TClass GetAddResponseModel<TClass>(string _procame, DynamicParameters param)
+
+
+
+
+
+        public static async Task<TClass> GetAddResponseModel<TClass>(string procName, DynamicParameters param)
         {
-            TClass _objMOdel;
-            using (SqlConnection con = new SqlConnection(connection()))
+            try
             {
-                try
+                using (SqlConnection objConnection = new SqlConnection(connection()))
                 {
-                    using (SqlConnection objConnection = new SqlConnection(connection()))
-                    {
-                        _objMOdel = SqlMapper.Query<TClass>(objConnection, _procame, param, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
-                    }
-                    return _objMOdel;
+                    await objConnection.OpenAsync();
+                    var result = await objConnection.QueryFirstOrDefaultAsync<TClass>(
+                        procName,
+                        param,
+                        commandType: System.Data.CommandType.StoredProcedure
+                    );
+                    return result;
                 }
-                catch (Exception)
-                {
-                    throw;
-                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
-        public static List<T> GetResponseModelList<T>(string spName, DynamicParameters p)
+        public static async Task< List<T>> GetResponseModelList<T>(string spName, DynamicParameters p)
         {
             List<T> recordList = new List<T>();
             using (SqlConnection objConnection = new SqlConnection(connection()))
@@ -62,7 +63,7 @@ namespace MyApp.Models
             }
             return recordList;
         }
-        public static T GetResponseModel<T>(string spName, DynamicParameters p)
+        public  static async Task<  T> GetResponseModel<T>(string spName, DynamicParameters p)
         {
             using (SqlConnection objConnection = new SqlConnection(connection()))
             {
@@ -109,7 +110,7 @@ namespace MyApp.Models
             }
         }
 
-        public static CommonResponseDto<List<T>> GetPagedModelList<T>(
+        public static async Task< CommonResponseDto<List<T>>> GetPagedModelList<T>(
             string spName,
             DynamicParameters parameters)
         {

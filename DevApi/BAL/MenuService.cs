@@ -22,7 +22,7 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
             queryParameter.Add("@ProcId", 1);
             queryParameter.Add("@userId", commonRequest.UserId);
-            var res = DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -35,7 +35,7 @@ namespace MyApp.BAL
             string proc = "Proc_Menu";
             var queryParameter = new DynamicParameters();
             queryParameter.Add("@ProcId", 3);
-            var res = DBHelperDapper.GetResponseModelList<MenuDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetResponseModelList<MenuDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -50,7 +50,7 @@ namespace MyApp.BAL
             queryParameter.Add("@CreatedBy", commonRequest.UserId);
             queryParameter.Add("@UserMenuJson",
               Newtonsoft.Json.JsonConvert.SerializeObject(commonRequest.Data));
-            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -63,7 +63,7 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
             queryParameter.Add("@ProcId", 4);
             queryParameter.Add("@userId", commonRequest.UserId);
-            var res = DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetResponseModelList<UserMenuDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

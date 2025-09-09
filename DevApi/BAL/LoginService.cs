@@ -22,7 +22,7 @@ namespace MyApp.BAL
             this._configuration = configuration;
         }
 
-        public UserResponseDto Login(string UserName, string Password)
+        public async Task<UserResponseDto> Login(string UserName, string Password)
         {
             var mCompanyId = _configuration.GetValue<long>("CompanyDetail:ID");
             UserResponseDto res = new UserResponseDto();
@@ -31,7 +31,7 @@ namespace MyApp.BAL
             queryparameter.Add("@ProcId", 1);
             queryparameter.Add("@UserName", UserName);
             queryparameter.Add("@Password", Crypto.Encrypt(Password));
-            res = DBHelperDapper.GetAddResponseModel<UserResponseDto>(_proc, queryparameter);
+            res = await DBHelperDapper.GetAddResponseModel<UserResponseDto>(_proc, queryparameter);
             if (res != null && res.UserGuid != Guid.Empty)
             {
 

@@ -17,11 +17,8 @@ namespace MyApp.BAL
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
             queryparameter.Add("@ProcId", 3);
-            var res = DBHelperDapper.GetResponseModelList<UserDto>(_proc, queryparameter);
-            response.Data = res;
-            response.Flag = 1;
-            response.Message = "Success";
-            return response;
+            var res =await DBHelperDapper.GetPagedModelList<UserDto>(_proc, queryparameter);
+            return res;
         }
 
         public async Task<CommonResponseDto<ValidationMessageDto>> AddService(CommonRequestDto<UserDto> commonRequest)
@@ -39,7 +36,7 @@ namespace MyApp.BAL
             queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
             queryparameter.Add("@createdBy", commonRequest.UserId);
             CommonFunction.Printparameter(queryparameter, "User paramer for saving:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
+            var res =await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
             response.Flag = res != null ? res.Flag : 0;
             response.Message = res != null ? res.Message : "Failed to save user.";
@@ -54,7 +51,7 @@ namespace MyApp.BAL
             queryparameter.Add("@ProcId", 4);
             queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "Get User:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddResponseModel<UserDto>(_proc, queryparameter);
+            var res =await DBHelperDapper.GetAddResponseModel<UserDto>(_proc, queryparameter);
             if (res != null)
             {
                 res.Password = Crypto.Decrypt(res.Password);
@@ -87,7 +84,7 @@ namespace MyApp.BAL
             queryparameter.Add("@Remarks", commonRequest.Data.Remarks);
             queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "User paramer for updating:");//FOR WRITE LOG'
-            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
+            var res =await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(_proc, queryparameter);
             response.Data = res;
             response.Flag = res != null ? res.Flag : 0;
             response.Message = res != null ? "User updated successfully." : "Failed to update user.";

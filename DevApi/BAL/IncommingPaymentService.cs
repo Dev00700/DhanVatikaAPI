@@ -9,6 +9,11 @@ namespace MyApp.BAL
 {
     public class IncommingPaymentService
     {
+        private readonly IConfiguration _configuration;
+        public  IncommingPaymentService(IConfiguration aconfiguration)
+        {
+            _configuration = aconfiguration;
+        }
         public async Task<CommonResponseDto<ValidationMessageDto>> AddService(CommonRequestDto<IPaymentDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
@@ -41,7 +46,7 @@ namespace MyApp.BAL
             queryParameter.Add("@IsActive", data.IsActive);
             queryParameter.Add("@DelMark", data.DelMark);
 
-            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -80,7 +85,7 @@ namespace MyApp.BAL
             queryParameter.Add("@IsActive", data.IsActive);
             queryParameter.Add("@DelMark", data.DelMark);
 
-            var res = DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -89,6 +94,7 @@ namespace MyApp.BAL
 
         public async Task<CommonResponseDto<List<IPaymentResponseDto>>> GetListService(CommonRequestDto commonRequest)
         {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<List<IPaymentResponseDto>>();
             string proc = "Proc_IncommingPayment";
             var queryParameter = new DynamicParameters();
@@ -97,8 +103,8 @@ namespace MyApp.BAL
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
 
-            var res = DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
-           
+            var res =await DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
+            res.Data.ForEach(x => x.Image = x.Image !=""? imageurl + x.Image:"");
             return res;
         }
 
@@ -111,11 +117,30 @@ namespace MyApp.BAL
             queryParameter.Add("@ProcId", 4);
             queryParameter.Add("@IPaymentGuid", data.IPaymentGuid);
 
-            var res = DBHelperDapper.GetResponseModel<IPaymentResponseDto>(proc, queryParameter);
+            var res =await DBHelperDapper.GetResponseModel<IPaymentResponseDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
             return response;
         }
+        public async Task<CommonResponseDto<ValidationMessageDto>> UpdatePaymentService(CommonRequestDto<IPaymentApproveDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_ApproveIncommingPayment";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 1);
+            queryParameter.Add("@CreatedBy", commonRequest.UserId);
+            queryParameter.Add("@IPaymentguid", commonRequest.Data.IPaymentGuid);
+            queryParameter.Add("@ApproveFlag", commonRequest.Data.ApproveStatus);
+            queryParameter.Add("@Remarks", commonRequest.Data.ApproveRemarks);
+            var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
+
+        
     }
 }
