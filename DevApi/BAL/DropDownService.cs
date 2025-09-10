@@ -11,7 +11,7 @@ namespace MyApp.BAL
 {
     public  class DropDownService
     {
-        public async Task<CommonResponseDto<  List<DropDownDto>>> BindDropDown(CommonRequestDto<DropDownReq> commonRequest)
+        public async Task<CommonResponseDto<List<DropDownDto>>> BindDropDown(CommonRequestDto<DropDownReq> commonRequest)
         {
             var response = new CommonResponseDto<List<DropDownDto>>();
             string _proc = "Proc_BindDropDown";

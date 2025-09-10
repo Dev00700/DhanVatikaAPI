@@ -6,6 +6,7 @@ using MyApp.Models;
 using MyApp.Models.Common;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
+using System.Threading.Tasks;
 
 namespace DevApi.Controllers
 {
@@ -21,8 +22,8 @@ namespace DevApi.Controllers
             this.dropDownService = adropDownService;
         }
 
-        [HttpPost("GetRoleListService")]
-        public ActionResult<List<UserMenuDto>> GetUserMenuList([FromBody] CommonRequestDto<DropDownReq> commonRequestDto)
+        [HttpPost("GetDropdownListService")]
+        public async Task<ActionResult<CommonResponseDto<List<DropDownDto>>>> GetUserMenuList([FromBody] CommonRequestDto<DropDownReq> commonRequestDto)
         {
             DropDownReq obj = new DropDownReq();
             if (commonRequestDto.Data.SearchDDL == "Role")
@@ -47,8 +48,8 @@ namespace DevApi.Controllers
                     UserId = commonRequestDto.UserId
                 };
 
-            var list = dropDownService.BindDropDown(commonRequestDto);
-            return Ok(list);
+            var list =await dropDownService.BindDropDown(commonRequestDto);
+            return list;
         }
     }
 }
