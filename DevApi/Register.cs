@@ -1,4 +1,5 @@
 ﻿
+
 using DevApi.Models.Common;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.BAL;
@@ -15,7 +16,8 @@ namespace DevApi
             services.AddTransient<DropDownService>();
             services.AddTransient<UserService>();
             services.AddTransient<IncommingPaymentService>();
-         
+            services.AddTransient<OutgoingPaymentService>();
+
         }
     }
 }

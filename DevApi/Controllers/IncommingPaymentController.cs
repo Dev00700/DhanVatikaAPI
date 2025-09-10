@@ -1,3 +1,4 @@
+using DevApi.Models;
 using DevApi.Models.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -82,6 +83,13 @@ namespace MyApp.Controllers
         {
             var result = await paymentService.UpdatePaymentService(request);
             return result;
+        }
+
+        [HttpPost("IncommingPaymentCancelService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> IncommingPaymentCancel([FromBody] CommonRequestDto<IPaymentReqDto> request)
+        {
+            var payment = await paymentService.GetPaymentCancel(request);
+            return payment;
         }
     }
 }

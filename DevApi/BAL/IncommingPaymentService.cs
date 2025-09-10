@@ -1,4 +1,5 @@
 using Dapper;
+using DevApi.Models;
 using DevApi.Models.Common;
 using MyApp.Models;
 using MyApp.Models.Common;
@@ -141,6 +142,21 @@ namespace MyApp.BAL
             return response;
         }
 
-        
+        public async Task<CommonResponseDto<ValidationMessageDto>> GetPaymentCancel(CommonRequestDto<IPaymentReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_IncommingPayment";
+            var queryParameter = new DynamicParameters();
+            var data = commonRequest.Data;
+
+            queryParameter.Add("@ProcId", 5);
+            queryParameter.Add("@IPaymentguid", commonRequest.Data.IPaymentGuid);
+
+            var res = await DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }

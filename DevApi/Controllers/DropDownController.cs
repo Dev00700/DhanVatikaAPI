@@ -41,6 +41,11 @@ namespace DevApi.Controllers
                 obj.ProcId = 3; 
                 obj.ParentId = 0; 
             }
+            else if (commonRequestDto.Data.SearchDDL == "ExpenseCategory")
+            {
+                obj.ProcId = 4;
+                obj.ParentId = 0;
+            }
 
             commonRequestDto = new CommonRequestDto<DropDownReq>
                 {
