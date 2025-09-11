@@ -70,4 +70,12 @@ namespace DevApi.Models
         public string? SuperAdminApproveRemarks { get; set; }
 
     }
+
+    public class OPaymentApproveDto
+    {
+        public Guid? OPaymentGuid { get; set; }
+        public int? ApproveStatus { get; set; }
+        public int? ApproveBy { get; set; }
+        public string? ApproveRemarks { get; set; }
+    }
 }

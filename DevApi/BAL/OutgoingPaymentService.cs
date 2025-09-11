@@ -123,5 +123,23 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+
+        public async Task<CommonResponseDto<ValidationMessageDto>> UpdatePaymentService(CommonRequestDto<OPaymentApproveDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_ApproveOutgoingPayment";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 1);
+            queryParameter.Add("@CreatedBy", commonRequest.UserId);
+            queryParameter.Add("@OPaymentguid", commonRequest.Data.OPaymentGuid);
+            queryParameter.Add("@ApproveFlag", commonRequest.Data.ApproveStatus);
+            queryParameter.Add("@Remarks", commonRequest.Data.ApproveRemarks);
+            var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }

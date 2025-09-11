@@ -1,8 +1,9 @@
+using DevApi.Models;
 using DevApi.Models.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyApp.BAL;
-using DevApi.Models;
+using MyApp.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -52,6 +53,12 @@ namespace MyApp.Controllers
         {
             var payment = await outgoingPaymentService.GetPaymentCancel(request);
             return payment;
+        }
+        [HttpPost("ApproveOutPaymentService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> ApprovedPayment([FromBody] CommonRequestDto<OPaymentApproveDto> request)
+        {
+            var result = await outgoingPaymentService.UpdatePaymentService(request);
+            return result;
         }
     }
 }
