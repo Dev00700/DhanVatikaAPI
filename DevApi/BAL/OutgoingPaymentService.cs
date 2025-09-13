@@ -30,7 +30,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ExpenseDate", data.ExpenseDate);
             queryParameter.Add("@ExpenseCategoryId", data.ExpenseCategoryId);
             queryParameter.Add("@Amount", data.Amount);
-            queryParameter.Add("@PaymentMode", data.PaymentMode);
+            queryParameter.Add("@PaymentMode", data.PaymentModeId);
             queryParameter.Add("@ReferenceNo", data.ReferenceNo);
             queryParameter.Add("@PartyName", data.PartyName);
             queryParameter.Add("@UserId", data.UserId);
@@ -60,7 +60,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ExpenseTitle", data.ExpenseTitle);
             queryParameter.Add("@ExpenseDate", data.ExpenseDate);
             queryParameter.Add("@Amount", data.Amount);
-            queryParameter.Add("@PaymentMode", data.PaymentMode);
+            queryParameter.Add("@PaymentMode", data.PaymentModeId);
             queryParameter.Add("@ReferenceNo", data.ReferenceNo);
             queryParameter.Add("@PartyName", data.PartyName);
             queryParameter.Add("@UserId", data.UserId);

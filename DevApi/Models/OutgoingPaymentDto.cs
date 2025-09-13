@@ -6,18 +6,18 @@ namespace DevApi.Models
 {
     public class OutgoingPaymentDto : BaseDto
     {
-        public long? AuditId { get; set; }
         public Guid? OPaymentGuid { get; set; }
-        public long OPaymentId { get; set; }
+        public long? OPaymentId { get; set; }
         public int ExpenseCategoryId { get; set; }
         public string ExpenseTitle { get; set; }
         public DateTime ExpenseDate { get; set; }
         public decimal Amount { get; set; }
-        public string PaymentMode { get; set; }
+        public int PaymentModeId { get; set; }
         public string ReferenceNo { get; set; }
         public string PartyName { get; set; }
         public int UserId { get; set; }
         public string? Image { get; set; }
+        public string? PaymentMode { get; set; }
     }
     public class IOutgoingReqDto
     {
