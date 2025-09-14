@@ -45,6 +45,7 @@ namespace DevApi.Models
         public DateTime? ApproveDateF { get; set; }
         public string? Remarks { get; set; }
         public string? ExpenseCategoryName { get; set; }
+        public int PaymentModeId { get; set; }
         public string AdminApprover
         {
             get
