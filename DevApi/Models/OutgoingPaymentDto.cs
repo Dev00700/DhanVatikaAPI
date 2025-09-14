@@ -25,7 +25,7 @@ namespace DevApi.Models
     }
     public class IOutgoingResponseDto : ValidationMessageDto
     {
-        public long? AuditId { get; set; }
+   
         public Guid? OPaymentGuid { get; set; }
         public long OPaymentId { get; set; }
         public int ExpenseCategoryId { get; set; }
@@ -44,6 +44,7 @@ namespace DevApi.Models
         public int ApproveByF { get; set; }
         public DateTime? ApproveDateF { get; set; }
         public string? Remarks { get; set; }
+        public string? ExpenseCategoryName { get; set; }
         public string AdminApprover
         {
             get

@@ -52,7 +52,7 @@ namespace MyApp.Models
             }
         }
 
-        public static async Task< List<T>> GetResponseModelList<T>(string spName, DynamicParameters p)
+        public static async Task<List<T>> GetResponseModelList<T>(string spName, DynamicParameters p)
         {
             List<T> recordList = new List<T>();
             using (SqlConnection objConnection = new SqlConnection(connection()))
@@ -63,7 +63,7 @@ namespace MyApp.Models
             }
             return recordList;
         }
-        public  static async Task<  T> GetResponseModel<T>(string spName, DynamicParameters p)
+        public  static async Task<T> GetResponseModel<T>(string spName, DynamicParameters p)
         {
             using (SqlConnection objConnection = new SqlConnection(connection()))
             {
@@ -110,7 +110,7 @@ namespace MyApp.Models
             }
         }
 
-        public static async Task< CommonResponseDto<List<T>>> GetPagedModelList<T>(
+        public static async Task<CommonResponseDto<List<T>>> GetPagedModelList<T>(
             string spName,
             DynamicParameters parameters)
         {
