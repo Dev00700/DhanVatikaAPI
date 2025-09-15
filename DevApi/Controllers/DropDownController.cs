@@ -46,7 +46,16 @@ namespace DevApi.Controllers
                 obj.ProcId = 4;
                 obj.ParentId = 0;
             }
-
+            else if (commonRequestDto.Data.SearchDDL == "Location")
+            {
+                obj.ProcId = 5;
+                obj.ParentId = 0;
+            }
+            else if (commonRequestDto.Data.SearchDDL == "UnitType")
+            {
+                obj.ProcId = 6;
+                obj.ParentId = 0;
+            }
             commonRequestDto = new CommonRequestDto<DropDownReq>
                 {
                     Data = obj,

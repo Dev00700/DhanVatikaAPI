@@ -17,6 +17,7 @@ namespace DevApi
             services.AddTransient<UserService>();
             services.AddTransient<IncommingPaymentService>();
             services.AddTransient<OutgoingPaymentService>();
+            services.AddTransient<PlotService>();
 
         }
     }
