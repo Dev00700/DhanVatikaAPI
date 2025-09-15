@@ -25,5 +25,12 @@ namespace MyApp.Controllers
             var result = await plotService.AddService(request);
             return result;
         }
+
+        [HttpPost("AddPlotImagesService")]
+        public async Task<ActionResult<CommonResponseDto<List<ValidationMessageDto>>>> AddPlotImages([FromBody] CommonRequestDto<List<PlotImageDto>> request)
+        {
+            var result = await plotService.AddImagesService(request);
+            return result;
+        }
     }
 }

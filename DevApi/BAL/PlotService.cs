@@ -43,5 +43,33 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+
+        public async Task<CommonResponseDto<List<ValidationMessageDto>>> AddImagesService(CommonRequestDto<List<PlotImageDto>> commonRequest)
+        {
+            var response = new CommonResponseDto<List<ValidationMessageDto>>
+            {
+                Data = new List<ValidationMessageDto>()
+            };
+
+            string proc = "Proc_PlotImage";
+
+            foreach (var image in commonRequest.Data)
+            {
+                var queryParameter = new DynamicParameters();
+                queryParameter.Add("@ProcId", 1); // 1 for insert
+                queryParameter.Add("@PlotId", image.PlotId);
+                queryParameter.Add("@Image", image.Image);
+                queryParameter.Add("@IsActive", image.IsActive);
+                queryParameter.Add("@DelMark", image.DelMark);
+                queryParameter.Add("@Remarks", image.Remarks);
+
+                var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+                response.Data.Add(res);
+            }
+
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }
