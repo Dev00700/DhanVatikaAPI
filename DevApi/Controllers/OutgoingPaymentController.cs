@@ -43,15 +43,15 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("GetOutgoingPaymentService")]
-        public async Task<ActionResult<CommonResponseDto<IOutgoingResponseDto>>> GetOutgoingPayment([FromBody] CommonRequestDto<IOutgoingReqDto> request)
+        public ActionResult<CommonResponseDto<IOutgoingResponseDto>> GetOutgoingPayment([FromBody] CommonRequestDto<IOutgoingReqDto> request)
         {
-            var payment = await outgoingPaymentService.GetPayment(request);
+            var payment =  outgoingPaymentService.GetPayment(request);
             return payment;
         }
         [HttpPost("OutgoingPaymentCancelService")]
         public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> OutgoingPaymentCancel([FromBody] CommonRequestDto<IOutgoingReqDto> request)
         {
-            var payment = await outgoingPaymentService.GetPaymentCancel(request);
+            var payment =  outgoingPaymentService.GetPaymentCancel(request);
             return payment;
         }
         [HttpPost("ApproveOutPaymentService")]

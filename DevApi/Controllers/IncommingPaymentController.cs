@@ -45,7 +45,7 @@ namespace MyApp.Controllers
         [HttpPost("GetPaymentService")]
         public async Task<ActionResult<CommonResponseDto<IPaymentResponseDto>>> GetPayment([FromBody] CommonRequestDto<IPaymentReqDto> request)
         {
-            var payment = await paymentService.GetPayment(request);
+            var payment =  paymentService.GetPayment(request);
             return payment;
         }
 
@@ -88,7 +88,7 @@ namespace MyApp.Controllers
         [HttpPost("IncommingPaymentCancelService")]
         public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> IncommingPaymentCancel([FromBody] CommonRequestDto<IPaymentReqDto> request)
         {
-            var payment = await paymentService.GetPaymentCancel(request);
+            var payment =  paymentService.GetPaymentCancel(request);
             return payment;
         }
     }

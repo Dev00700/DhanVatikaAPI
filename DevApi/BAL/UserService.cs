@@ -46,9 +46,9 @@ namespace MyApp.BAL
         public async Task<CommonResponseDto<UserDto>> GetUser(CommonRequestDto<UserReqDto> commonRequest)
         {
             var response = new CommonResponseDto<UserDto>();
-            string _proc = "Proc_User";
+            string _proc = "Proc_userForEdit";
             var queryparameter = new DynamicParameters();
-            queryparameter.Add("@ProcId", 4);
+            //queryparameter.Add("@ProcId", 4);
             queryparameter.Add("@UserGuid", commonRequest.Data.UserGuid);
             CommonFunction.Printparameter(queryparameter, "Get User:");//FOR WRITE LOG'
             var res =await DBHelperDapper.GetAddResponseModel<UserDto>(_proc, queryparameter);

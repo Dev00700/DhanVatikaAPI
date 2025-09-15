@@ -91,23 +91,23 @@ namespace MyApp.BAL
             return res;
         }
 
-        public async Task<CommonResponseDto<IOutgoingResponseDto>> GetPayment(CommonRequestDto<IOutgoingReqDto> commonRequest)
+        public  CommonResponseDto<IOutgoingResponseDto> GetPayment(CommonRequestDto<IOutgoingReqDto> commonRequest)
         {
             var response = new CommonResponseDto<IOutgoingResponseDto>();
-            string proc = "Proc_OutgoingPayment";
-            var queryParameter = new DynamicParameters();
+            string proc = "Proc_OutgoingPaymentForEdit";
+          
             var data = commonRequest.Data;
+            var queryParameter = new DynamicParameters();
+            //queryParameter.Add("@ProcId", 4);
+            queryParameter.Add("@OPaymentGuid",data.OPaymentGuid);
 
-            queryParameter.Add("@ProcId", 4);
-            queryParameter.Add("@OPaymentGuid", data.OPaymentGuid);
-
-            var res = await DBHelperDapper.GetResponseModel<IOutgoingResponseDto>(proc, queryParameter);
+            var res =  DBHelperDapper.GetResponseModel<IOutgoingResponseDto>(proc , queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
             return response;
         }
-        public async Task<CommonResponseDto<ValidationMessageDto>> GetPaymentCancel(CommonRequestDto<IOutgoingReqDto> commonRequest)
+        public CommonResponseDto<ValidationMessageDto> GetPaymentCancel(CommonRequestDto<IOutgoingReqDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string proc = "Proc_OutgoingPayment";
@@ -117,7 +117,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ProcId", 5);
             queryParameter.Add("@OPaymentGuid", data.OPaymentGuid);
 
-            var res = await DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+            var res =  DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

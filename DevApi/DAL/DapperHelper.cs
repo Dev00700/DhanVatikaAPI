@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace MyApp.Models
@@ -63,20 +64,34 @@ namespace MyApp.Models
             }
             return recordList;
         }
-        public  static async Task<T> GetResponseModel<T>(string spName, DynamicParameters p)
+        public static T GetResponseModel<T>(string spName, DynamicParameters p)
         {
-            using (SqlConnection objConnection = new SqlConnection(connection()))
+            try
             {
-                objConnection.Open();
-                var record = SqlMapper.QueryFirstOrDefault<T>(
-                    objConnection,
-                    spName,
-                    p,
-                    commandType: System.Data.CommandType.StoredProcedure
-                );
-                return record;
+                var paramLog = GetDynamicParametersLog(p);
+                Console.WriteLine($"SP: {spName}\nParameters:\n{paramLog}\nError: ");
+                using (SqlConnection objConnection = new SqlConnection(connection()))
+                {
+                    objConnection.Open();
+                    var record = SqlMapper.QueryFirst<T>(
+                        objConnection,
+                        spName,
+                        p,
+                        commandType: CommandType.StoredProcedure
+                    );
+                    return record;
+                }
+            }
+            catch (Exception ex)
+            {
+                var paramLog = GetDynamicParametersLog(p);
+                Console.WriteLine($"SP: {spName}\nParameters:\n{paramLog}\nError: {ex.Message}");
+
+                // Exception को caller तक पहुंचाना ज़रूरी है
+                throw;
             }
         }
+
 
         public static TResponse GetAllModelNew<TRequest, TResponse>(string procName, DynamicParameters param)
         {
@@ -135,5 +150,17 @@ namespace MyApp.Models
 
             return response;
         }
+
+        public static string GetDynamicParametersLog(DynamicParameters p)
+        {
+            var sb = new StringBuilder();
+            foreach (var name in p.ParameterNames)
+            {
+                var value = p.Get<dynamic>(name);
+                sb.AppendLine($"{name} = {value ?? "NULL"}");
+            }
+            return sb.ToString();
+        }
     }
+
 } 

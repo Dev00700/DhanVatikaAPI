@@ -109,16 +109,16 @@ namespace MyApp.BAL
             return res;
         }
 
-        public async Task<CommonResponseDto<IPaymentResponseDto>> GetPayment(CommonRequestDto<IPaymentReqDto> commonRequest)
+        public CommonResponseDto<IPaymentResponseDto> GetPayment(CommonRequestDto<IPaymentReqDto> commonRequest)
         {
             var response = new CommonResponseDto<IPaymentResponseDto>();
-            string proc = "Proc_IncommingPayment";
+            string proc = "Proc_IncommingPaymentForEdit";
             var queryParameter = new DynamicParameters();
             var data = commonRequest.Data;
-            queryParameter.Add("@ProcId", 4);
+            //queryParameter.Add("@ProcId", 4);
             queryParameter.Add("@IPaymentGuid", data.IPaymentGuid);
 
-            var res =await DBHelperDapper.GetResponseModel<IPaymentResponseDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetResponseModel<IPaymentResponseDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
@@ -142,7 +142,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<ValidationMessageDto>> GetPaymentCancel(CommonRequestDto<IPaymentReqDto> commonRequest)
+        public CommonResponseDto<ValidationMessageDto> GetPaymentCancel(CommonRequestDto<IPaymentReqDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string proc = "Proc_IncommingPayment";
@@ -152,7 +152,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ProcId", 5);
             queryParameter.Add("@IPaymentguid", commonRequest.Data.IPaymentGuid);
 
-            var res = await DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+            var res =  DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
