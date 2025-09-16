@@ -93,6 +93,7 @@ namespace MyApp.BAL
 
         public  CommonResponseDto<IOutgoingResponseDto> GetPayment(CommonRequestDto<IOutgoingReqDto> commonRequest)
         {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<IOutgoingResponseDto>();
             string proc = "Proc_OutgoingPaymentForEdit";
           
@@ -102,6 +103,10 @@ namespace MyApp.BAL
             queryParameter.Add("@OPaymentGuid",data.OPaymentGuid);
 
             var res =  DBHelperDapper.GetResponseModel<IOutgoingResponseDto>(proc , queryParameter);
+            if (res != null && !string.IsNullOrEmpty(res.Image))
+            {
+                res.Image = $"{imageurl}{res.Image}";
+            }
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

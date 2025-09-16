@@ -32,5 +32,18 @@ namespace MyApp.Controllers
             var result = await plotService.AddImagesService(request);
             return result;
         }
+        [HttpPost("UpdatePlotService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> UpdatePlot([FromBody] CommonRequestDto<PlotDto> request)
+        {
+            var result = await plotService.UpdateService(request);
+            return result;
+        }
+
+        [HttpPost("GetPlotListService")]
+        public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> PlotList([FromBody] CommonRequestDto request)
+        {
+            var result = await plotService.GetListService(request);
+            return result;
+        }
     }
 }

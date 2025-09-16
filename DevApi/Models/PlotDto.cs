@@ -5,8 +5,9 @@ namespace DevApi.Models
 {
     public class PlotDto:BaseDto
     {
-      
-     
+
+        public Guid? PlotGuid { get; set; }
+        public long? PlotId { get; set; }
         public string PlotName { get; set; }
         public string Description { get; set; }
         public int LocationId { get; set; }
