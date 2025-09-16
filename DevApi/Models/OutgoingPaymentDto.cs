@@ -70,7 +70,7 @@ namespace DevApi.Models
         public string? SuperAdminName { get; set; }
         public string? SuperAdminApproveDate { get; set; }
         public string? SuperAdminApproveRemarks { get; set; }
-
+        public bool? IsDisabled { get; set; }
     }
 
     public class OPaymentApproveDto
