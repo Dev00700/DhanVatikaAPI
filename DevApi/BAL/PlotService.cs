@@ -121,5 +121,19 @@ namespace MyApp.BAL
           
             return res;
         }
+        public  CommonResponseDto<PlotResponseDto> GetPlotService(CommonRequestDto<PlotReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<PlotResponseDto>();
+            string proc = "Proc_Plot";
+            var queryParameter = new DynamicParameters();
+            var data = commonRequest.Data;
+            queryParameter.Add("@ProcId", 4);
+            queryParameter.Add("@PlotGuid", data.PlotGuid);
+            var res = DBHelperDapper.GetResponseModel<PlotResponseDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }

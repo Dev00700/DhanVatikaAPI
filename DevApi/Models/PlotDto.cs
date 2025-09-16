@@ -55,7 +55,7 @@ namespace DevApi.Models
             }
         }
 
-        public int LocationName { get; set; }
-        public int UnitTypeName { get; set; }
+        public string? LocationName { get; set; }
+        public string? UnitTypeName { get; set; }
     }
 }
