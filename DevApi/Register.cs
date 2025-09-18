@@ -1,5 +1,6 @@
 ﻿
 
+using DevApi.BAL;
 using DevApi.Models.Common;
 using Microsoft.Extensions.DependencyInjection;
 using MyApp.BAL;
@@ -18,6 +19,7 @@ namespace DevApi
             services.AddTransient<IncommingPaymentService>();
             services.AddTransient<OutgoingPaymentService>();
             services.AddTransient<PlotService>();
+            services.AddTransient<DashboardService>();
 
         }
     }
