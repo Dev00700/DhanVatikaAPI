@@ -11,12 +11,14 @@ namespace MyApp.BAL
 {
     public  class UserService
     {
-        public async Task<CommonResponseDto<List<UserDto>>> GetListService()
+        public async Task<CommonResponseDto<List<UserDto>>> GetListService(CommonRequestDto request)
         {
             var response = new CommonResponseDto<List<UserDto>>( );
             string _proc = "Proc_User";
             var queryparameter = new DynamicParameters();
             queryparameter.Add("@ProcId", 3);
+            queryparameter.Add("@PageNumber", request.PageSize);
+            queryparameter.Add("@PageRecordCount", request.PageRecordCount);
             var res =await DBHelperDapper.GetPagedModelList<UserDto>(_proc, queryparameter);
             return res;
         }

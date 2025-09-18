@@ -38,9 +38,9 @@ namespace MyApp.Controllers
 
         // GET: api/User
         [HttpPost("GetUserListService")]
-        public async Task<ActionResult<CommonResponseDto<List<UserDto>>>> GetListUsers()
+        public async Task<ActionResult<CommonResponseDto<List<UserDto>>>> GetListUsers(CommonRequestDto request)
         {
-            var users = await userService.GetListService();
+            var users = await userService.GetListService(request);
            return users;
         }
 
