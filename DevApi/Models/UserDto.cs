@@ -47,6 +47,7 @@ namespace MyApp.Models
         public string? Status { get; set; }
         public string? Token { get; set; }
         public bool? IsSuperAdmin { get; set; }
+        public int? IsAdmin { get; set; }
         
     }
 }
