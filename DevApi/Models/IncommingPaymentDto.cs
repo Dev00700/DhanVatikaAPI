@@ -34,6 +34,12 @@ namespace MyApp.Models
     public class IPaymentReqDto
     {
         public Guid? IPaymentGuid { get; set; }
+        public string? PaymentType { get; set; }
+        public int? PaymentModeId { get; set; }
+        public int? PaymentSource { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
 
     public class IPaymentResponseDto : ValidationMessageDto
@@ -83,7 +89,6 @@ namespace MyApp.Models
         public string? SuperAdminName { get; set; }
         public string? SuperAdminApproveDate { get; set; }
         public string? SuperAdminApproveRemarks { get; set; }
-        public bool? IsDisabled { get; set; }
     }
 
     public class IPaymentApproveDto

@@ -93,7 +93,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<IPaymentResponseDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<IPaymentResponseDto>>> GetListService(CommonRequestDto<IPaymentReqDto> commonRequest)
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<List<IPaymentResponseDto>>();
@@ -103,6 +103,12 @@ namespace MyApp.BAL
             queryParameter.Add("@ProcId", 3);
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            queryParameter.Add("@PaymentType", commonRequest.Data.PaymentType);
+            queryParameter.Add("@PaymentSource", commonRequest.Data.PaymentSource);
+            queryParameter.Add("@PaymentModeId", commonRequest.Data.PaymentModeId);
+            queryParameter.Add("@PaymentDate", commonRequest.Data.PaymentDate);
+            queryParameter.Add("@Year", commonRequest.Data.Year);
+            queryParameter.Add("@Month", commonRequest.Data.Month);
 
             var res =await DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
             res.Data.ForEach(x => x.Image = x.Image !=""? imageurl + x.Image:"");

@@ -56,6 +56,26 @@ namespace DevApi.Controllers
                 obj.ProcId = 6;
                 obj.ParentId = 0;
             }
+            else if (commonRequestDto.Data.SearchDDL == "IncommingYear")
+            {
+                obj.ProcId = 7;
+                obj.ParentId = 0;
+            }
+            else if (commonRequestDto.Data.SearchDDL == "IncommingMonth")
+            {
+                obj.ProcId = 8;
+                obj.ParentId = commonRequestDto.Data.ParentId;
+            }
+            else if (commonRequestDto.Data.SearchDDL == "OutgoingYear")
+            {
+                obj.ProcId = 9;
+                obj.ParentId = 0;
+            }
+            else if (commonRequestDto.Data.SearchDDL == "OutgoingMonth")
+            {
+                obj.ProcId = 10;
+                obj.ParentId = commonRequestDto.Data.ParentId;
+            }
             commonRequestDto = new CommonRequestDto<DropDownReq>
                 {
                     Data = obj,
