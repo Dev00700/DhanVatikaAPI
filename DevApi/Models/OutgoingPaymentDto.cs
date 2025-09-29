@@ -22,6 +22,11 @@ namespace DevApi.Models
     public class IOutgoingReqDto
     {
         public Guid? OPaymentGuid { get; set; }
+        public string? ExpenseTitle { get; set; }
+        public int? PaymentModeId { get; set; }
+        public string? ReferenceNo { get; set; }
+        public int? Year { get; set; }
+        public int? Month { get; set; }
     }
     public class IOutgoingResponseDto : ValidationMessageDto
     {

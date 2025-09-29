@@ -77,7 +77,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<IOutgoingResponseDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<IOutgoingResponseDto>>> GetListService(CommonRequestDto<IOutgoingReqDto> commonRequest)
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<List<IOutgoingResponseDto>>();
@@ -85,6 +85,11 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3);
+            queryParameter.Add("@Year", commonRequest.Data.Year);
+            queryParameter.Add("@Month", commonRequest.Data.Month);
+            queryParameter.Add("@ExpenseTitle", commonRequest.Data.ExpenseTitle);
+            queryParameter.Add("@PaymentMode", commonRequest.Data.PaymentModeId);
+            queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
 
             var res =await DBHelperDapper.GetPagedModelList<IOutgoingResponseDto>(proc, queryParameter);
            
