@@ -20,7 +20,7 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("AddPlotService")]
-        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> AddPlot([FromBody] CommonRequestDto<PlotDto> request)
+        public async Task<ActionResult<CommonResponseDto<plotAddResDto>>> AddPlot([FromBody] CommonRequestDto<PlotDto> request)
         {
             var result = await plotService.AddService(request);
             return result;
@@ -33,7 +33,7 @@ namespace MyApp.Controllers
             return result;
         }
         [HttpPost("UpdatePlotService")]
-        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> UpdatePlot([FromBody] CommonRequestDto<PlotDto> request)
+        public async Task<ActionResult<CommonResponseDto<plotAddResDto>>> UpdatePlot([FromBody] CommonRequestDto<PlotDto> request)
         {
             var result = await plotService.UpdateService(request);
             return result;
@@ -49,6 +49,19 @@ namespace MyApp.Controllers
         public ActionResult<CommonResponseDto<PlotResponseDto>> GetPlot([FromBody] CommonRequestDto<PlotReqDto> request)
         {
             var result =  plotService.GetPlotService(request);
+            return result;
+        }
+        [HttpPost("AddPlotBookingService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> AddPlotBooking([FromBody] CommonRequestDto<PlotBookingReqDto> request)
+        {
+            var result = await plotService.AddPlotBookingService(request);
+            return result;
+        }
+
+        [HttpPost("UpdatePlotBookingService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> UpdatePlotBooking([FromBody] CommonRequestDto<PlotBookingReqDto> request)
+        {
+            var result = await plotService.UpdatePlotBookingService(request);
             return result;
         }
     }

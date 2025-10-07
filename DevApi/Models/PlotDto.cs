@@ -1,4 +1,5 @@
-﻿using DevApi.Models.Enums;
+﻿using DevApi.Models.Common;
+using DevApi.Models.Enums;
 using MyApp.Models.Common;
 
 namespace DevApi.Models
@@ -57,5 +58,11 @@ namespace DevApi.Models
 
         public string? LocationName { get; set; }
         public string? UnitTypeName { get; set; }
+        public List<PlotImageDto>? PlotImage { get; set; }
+    }
+
+    public class plotAddResDto: ValidationMessageDto
+    {
+        public long PlotId { get; set; }
     }
 }
