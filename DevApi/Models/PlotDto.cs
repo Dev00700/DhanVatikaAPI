@@ -65,4 +65,42 @@ namespace DevApi.Models
     {
         public long PlotId { get; set; }
     }
+
+   public class LocationDto
+    {
+        public Guid LocationGuid { get; set; }
+        public int LocationId { get; set; }
+        public string LocationName { get; set; }
+    }
+   
+    public class PtotWebReq
+    {
+        public int LocationId { get; set; }
+        public int PLotId { get; set; }
+      
+    }
+
+    public class PlotWebResponseDto
+    {
+        public Guid PlotGuid { get; set; }
+        public long PlotId { get; set; }
+        public string PlotCode { get; set; }
+        public string PlotName { get; set; }
+        public string Description { get; set; }
+       
+        public decimal AreaSize { get; set; }
+        public int Status { get; set; }
+        public string PlotStatus
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(PlotStatusEnum), Status)
+                    ? ((PlotStatusEnum)Status).ToString()
+                    : string.Empty;
+            }
+        }
+
+        public string? UnitTypeName { get; set; }
+      
+    }
 }

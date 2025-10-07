@@ -327,5 +327,46 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+
+        public async Task<CommonResponseDto<List<LocationDto>>> GetLocationListService(CommonRequestDto commonRequest)
+        {
+
+            var response = new CommonResponseDto<List<LocationDto>>();
+            string proc = "Proc_GetPlot";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 1);
+            var res = await DBHelperDapper.GetResponseModelList<LocationDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
+
+        public async Task<CommonResponseDto<List<PlotWebResponseDto>>> GetPlotWebListService(CommonRequestDto<PtotWebReq> commonRequest)
+        {
+
+            var response = new CommonResponseDto<List<PlotWebResponseDto>>();
+            string proc = "Proc_GetPlot";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 2);
+            queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
+            var res = await DBHelperDapper.GetResponseModelList<PlotWebResponseDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
+        public  CommonResponseDto<PlotResponseDto> GetPlotWebService(CommonRequestDto<PtotWebReq> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<PlotResponseDto>();
+            string proc = "Proc_GetPlot";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 3);
+            queryParameter.Add("@PlotId", commonRequest.Data.PLotId);
+            var res =  DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
+            res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            response.Data = res;
+            return response;
+        }
     }
 }
