@@ -64,5 +64,12 @@ namespace MyApp.Controllers
             var result = await plotService.UpdatePlotBookingService(request);
             return result;
         }
+
+        [HttpPost("DeletePlotImagesService")]
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> DeletePlotImages([FromBody] CommonRequestDto<PlotImageDeleteDto> request)
+        {
+            var result = await plotService.DeletePLotImagesService(request);
+            return result;
+        }
     }
 }

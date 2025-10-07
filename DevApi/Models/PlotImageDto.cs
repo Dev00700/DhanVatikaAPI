@@ -24,4 +24,10 @@ namespace DevApi.Models
         public bool DelMark { get; set; }
        
     }
+
+    public class  PlotImageDeleteDto
+    {
+        public long PlotId { get; set; }    
+        public Guid PlotImageGuid { get; set; }
+    }
 }

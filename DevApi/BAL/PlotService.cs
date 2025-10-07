@@ -304,5 +304,28 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+
+        public async Task<CommonResponseDto<ValidationMessageDto>> DeletePLotImagesService(CommonRequestDto<PlotImageDeleteDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>
+            {
+                Data = new ValidationMessageDto()
+            };
+
+            string proc = "Proc_PlotImage";
+
+             var queryParameter = new DynamicParameters();
+                queryParameter.Add("@ProcId", 2); // 1 for insert
+                queryParameter.Add("@PlotImageGuid", commonRequest.Data.PlotImageGuid); // 1 for insert
+                
+
+                var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+                response.Data = res;
+
+
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
     }
 }
