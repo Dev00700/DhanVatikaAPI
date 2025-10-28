@@ -42,6 +42,8 @@ namespace MyApp.BAL
             queryParameter.Add("@IsActive", data.IsActive);
             queryParameter.Add("@DelMark", data.DelMark);
             queryParameter.Add("@Remarks", data.Remarks);
+            queryParameter.Add("@IsShowONWeb", data.IsShowONWeb);
+            queryParameter.Add("@Amenities", data.Amenities);
 
             var res =await DBHelperDapper.GetAddResponseModel<plotAddResDto>(proc, queryParameter);
             response.Data = res;
@@ -104,6 +106,8 @@ namespace MyApp.BAL
             queryParameter.Add("@IsActive", data.IsActive);
             queryParameter.Add("@DelMark", data.DelMark);
             queryParameter.Add("@Remarks", data.Remarks);
+            queryParameter.Add("@IsShowONWeb", data.IsShowONWeb);
+            queryParameter.Add("@Amenities", data.Amenities);
 
             var res = await DBHelperDapper.GetAddResponseModel<plotAddResDto>(proc, queryParameter);
             response.Data = res;
@@ -330,13 +334,14 @@ namespace MyApp.BAL
 
         public async Task<CommonResponseDto<List<LocationDto>>> GetLocationListService(CommonRequestDto commonRequest)
         {
-
+            var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<List<LocationDto>>();
             string proc = "Proc_GetPlot";
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 1);
             var res = await DBHelperDapper.GetResponseModelList<LocationDto>(proc, queryParameter);
+            res.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
             response.Data = res;
             return response;
         }
@@ -365,6 +370,22 @@ namespace MyApp.BAL
             queryParameter.Add("@PlotId", commonRequest.Data.PLotId);
             var res =  DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
             res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            response.Data = res;
+            return response;
+        }
+        public async Task<CommonResponseDto<List<PlotResponseDto>>> GetPlotWebHomeService(CommonRequestDto commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<List<PlotResponseDto>>();
+            string proc = "Proc_GetPlot";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 4);
+            var res =await DBHelperDapper.GetResponseModelList<PlotResponseDto>(proc, queryParameter);
+            if (res != null)
+            {
+                res.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            }
             response.Data = res;
             return response;
         }

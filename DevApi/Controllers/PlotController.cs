@@ -93,5 +93,11 @@ namespace MyApp.Controllers
             var result =  plotService.GetPlotWebService(request);
             return result;
         }
+        [HttpPost("GetPlotWebHomeService")]
+        public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetHomePlotWeb([FromBody] CommonRequestDto request)
+        {
+            var result =await plotService.GetPlotWebHomeService(request);
+            return result;
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace DevApi
             services.AddTransient<OutgoingPaymentService>();
             services.AddTransient<PlotService>();
             services.AddTransient<DashboardService>();
+            services.AddTransient<LocationService>();
 
         }
     }

@@ -22,6 +22,8 @@ namespace DevApi.Models
         public string Facing { get; set; }
         public string PlotType { get; set; }
         public string NearbyLandmarks { get; set; }
+        public bool? IsShowONWeb { get; set; }
+        public string? Amenities { get; set; }
        
     }
     public class PlotReqDto
@@ -58,6 +60,9 @@ namespace DevApi.Models
 
         public string? LocationName { get; set; }
         public string? UnitTypeName { get; set; }
+        public bool? IsShowONWeb { get; set; }
+        public string? Amenities { get; set; }
+        public string? Image { get; set; }
         public List<PlotImageDto>? PlotImage { get; set; }
     }
 
@@ -71,6 +76,8 @@ namespace DevApi.Models
         public Guid LocationGuid { get; set; }
         public int LocationId { get; set; }
         public string LocationName { get; set; }
+        public string? Image { get; set; }
+        public int? TotalPlot { get; set; }
     }
    
     public class PtotWebReq
@@ -101,6 +108,8 @@ namespace DevApi.Models
         }
 
         public string? UnitTypeName { get; set; }
-      
+        public bool? IsShowONWeb { get; set; }
+        public string? Amenities { get; set; }
+
     }
 }
