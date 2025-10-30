@@ -74,30 +74,5 @@ namespace MyApp.Controllers
         }
 
 
-        [HttpPost("GetLocationListService")]
-        public async Task<ActionResult<CommonResponseDto<List<LocationDto>>>> GetLocationList([FromBody] CommonRequestDto request)
-        {
-            var result = await plotService.GetLocationListService(request);
-            return result;
-        }
-        [HttpPost("GetPlotWebListService")]
-        public async Task<ActionResult<CommonResponseDto<List<PlotWebResponseDto>>>> GetPlotWebList([FromBody] CommonRequestDto<PtotWebReq> request)
-        {
-            var result = await plotService.GetPlotWebListService(request);
-            return result;
-        }
-
-        [HttpPost("GetPlotWebService")]
-        public  ActionResult<CommonResponseDto<PlotResponseDto>> GetPlotWeb([FromBody] CommonRequestDto<PtotWebReq> request)
-        {
-            var result =  plotService.GetPlotWebService(request);
-            return result;
-        }
-        [HttpPost("GetPlotWebHomeService")]
-        public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetHomePlotWeb([FromBody] CommonRequestDto request)
-        {
-            var result =await plotService.GetPlotWebHomeService(request);
-            return result;
-        }
     }
 }

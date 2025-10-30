@@ -74,7 +74,7 @@ namespace MyApp.BAL
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<LocationResDto>();
-            string proc = "Proc_Location";
+            string proc = "proc_GetLocation";
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 4); // 4 for get single
