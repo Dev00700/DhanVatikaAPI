@@ -41,7 +41,7 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("GetPlotListService")]
-        public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetPlotList([FromBody] CommonRequestDto request)
+        public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetPlotList([FromBody] CommonRequestDto<PlotSerchDto> request)
         {
             var result = await plotService.GetListService(request);
             return result;

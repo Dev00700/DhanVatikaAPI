@@ -4,7 +4,7 @@ namespace DevApi.Models
 {
     public class PlotImageDto:BaseDto
     {
-       
+        public Guid PlotImageGuid { get; set; }
         public int PlotId { get; set; }
         public string Image { get; set; }
        

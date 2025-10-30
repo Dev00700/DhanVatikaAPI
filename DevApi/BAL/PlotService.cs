@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using MyApp.Models;
 using MyApp.Models.Common;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyApp.BAL
 {
@@ -116,7 +117,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<PlotResponseDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<PlotResponseDto>>> GetListService(CommonRequestDto<PlotSerchDto> commonRequest)
         {
           
             var response = new CommonResponseDto<List<PlotResponseDto>>();
@@ -124,6 +125,9 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3);
+            queryParameter.Add("@PlotName",commonRequest.Data.PlotName);
+            queryParameter.Add("@PlotType", commonRequest.Data.PlotType);
+            queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
             var res = await DBHelperDapper.GetPagedModelList<PlotResponseDto>(proc, queryParameter);
@@ -141,7 +145,10 @@ namespace MyApp.BAL
             queryParameter.Add("@PlotGuid", data.PlotGuid);
             //var res = DBHelperDapper.GetResponseModel<PlotResponseDto>(proc, queryParameter);
             var res = DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
-            res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            if (res.PlotImage != null)
+            {
+                res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            }
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";

@@ -30,6 +30,12 @@ namespace DevApi.Models
     {
         public Guid PlotGuid { get; set; }
     }
+    public class PlotSerchDto
+    {
+        public string? PlotName { get; set; }
+        public string? PlotType { get; set; }
+        public int?   LocationId { get; set; }
+    }
     public class PlotResponseDto
     {
         public Guid PlotGuid { get; set; }
