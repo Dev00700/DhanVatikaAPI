@@ -10,7 +10,7 @@ namespace MyApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class PlotController : ControllerBase
     {
         private readonly PlotService plotService;
