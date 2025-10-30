@@ -92,7 +92,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
 
             var res =await DBHelperDapper.GetPagedModelList<IOutgoingResponseDto>(proc, queryParameter);
-           
+            res.Data.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
             return res;
         }
 
