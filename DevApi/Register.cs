@@ -21,6 +21,8 @@ namespace DevApi
             services.AddTransient<PlotService>();
             services.AddTransient<DashboardService>();
             services.AddTransient<LocationService>();
+            services.AddTransient<EnquiryService>();
+
 
         }
     }
