@@ -22,6 +22,7 @@ namespace DevApi
             services.AddTransient<DashboardService>();
             services.AddTransient<LocationService>();
             services.AddTransient<EnquiryService>();
+            services.AddTransient<CustomerService>();
 
 
         }

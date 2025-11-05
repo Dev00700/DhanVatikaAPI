@@ -32,6 +32,7 @@ namespace DevApi.Models
         public string? PlotName { get; set; }
         public string? PlotCode { get; set; }
         public string? Status { get; set; }
+        public int? IsCustomer { get; set; }
     }
 
     public class EnquiryClosedDto
