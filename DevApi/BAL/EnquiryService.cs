@@ -46,19 +46,24 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<EnquiryResDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<EnquiryResDto>>> GetListService(CommonRequestDto<EnquirySerchDto> commonRequest)
         {
             var response = new CommonResponseDto<List<EnquiryResDto>>();
             string proc = "Proc_PlotEnquiry";
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 4); // 4 for list
+            queryParameter.Add("@Name", commonRequest.Data.Name);
+            queryParameter.Add("@Email", commonRequest.Data.Email);
+            queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
+            queryParameter.Add("@Date", commonRequest.Data.Date);
+            queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+            queryParameter.Add("@PlotName", commonRequest.Data.PlotName);
+            queryParameter.Add("@LocationName", commonRequest.Data.LocationName);
+            queryParameter.Add("Status", commonRequest.Data.Status);
 
-            var res = await DBHelperDapper.GetResponseModelList<EnquiryResDto>(proc, queryParameter);
-            response.Data = res;
-            response.Flag = 1;
-            response.Message = "Success";
-            return response;
+            var res = await DBHelperDapper.GetPagedModelList<EnquiryResDto>(proc, queryParameter);
+            return res;
         }
     }
 }

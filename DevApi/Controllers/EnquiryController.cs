@@ -35,7 +35,7 @@ namespace MyApp.Controllers
         }
         [Authorize]
         [HttpPost("GetEnquiryListService")]
-        public async Task<ActionResult<CommonResponseDto<List<EnquiryResDto>>>> GetEnquiryList(CommonRequestDto commonRequest)
+        public async Task<ActionResult<CommonResponseDto<List<EnquiryResDto>>>> GetEnquiryList(CommonRequestDto<EnquirySerchDto> commonRequest)
         {
             var result = await enquiryService.GetListService(commonRequest);
             return result;

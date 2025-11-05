@@ -31,11 +31,25 @@ namespace DevApi.Models
         public string? LocationName { get; set; }
         public string? PlotName { get; set; }
         public string? PlotCode { get; set; }
+        public string? Status { get; set; }
     }
 
     public class EnquiryClosedDto
     {
         public Guid EnquiryGuid { get; set; }
         public string Remarks { get; set; }
+    }
+
+    public class EnquirySerchDto
+    {
+        public string? LocationName { get; set; }
+        public string? PlotName { get; set; }
+        public string? PlotCode { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Mobile { get; set; }
+        public bool? Status { get; set; }
+
+        public DateTime? Date { get; set; }
     }
 }
