@@ -35,9 +35,21 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("GetCustomerListService")]
-        public async Task<ActionResult<CommonResponseDto<List<CustomerResDto>>>> GetCustomerList(CommonRequestDto commonRequest)
+        public async Task<ActionResult<CommonResponseDto<List<CustomerResDto>>>> GetCustomerList(CommonRequestDto<CustomerReqDto> commonRequest)
         {
             var result = await customerService.GetListService(commonRequest);
+            return result;
+        }
+        [HttpPost("CustomerLoginService")]
+        public async Task<ActionResult<CommonResponseDto<CustomerResDto>>> CustomerLogin(CommonRequestDto<CustomerLoginReqDto> commonRequest)
+        {
+            var result = await customerService.CustomerLoginService(commonRequest);
+            return result;
+        }
+        [HttpPost("UpdateCustomerPasswordService")]
+        public ActionResult<CommonResponseDto<ValidationMessageDto>> CustomerUpdatePassword(CommonRequestDto<UpdatePasswordReqDto> commonRequest)
+        {
+            var result =  customerService.UpdatePasswordService(commonRequest);
             return result;
         }
     }

@@ -1,4 +1,5 @@
-﻿using MyApp.Models.Common;
+﻿using DevApi.Models.Common;
+using MyApp.Models.Common;
 
 namespace DevApi.Models
 {
@@ -14,7 +15,7 @@ namespace DevApi.Models
         public string? Image { get; set; }
        
     }
-    public class CustomerResDto : BaseDto
+    public class CustomerResDto : ValidationMessageDto
     {
         public Guid? CustomerGuid { get; set; }
         public long? CustomerId { get; set; }
@@ -24,7 +25,22 @@ namespace DevApi.Models
         public string Mobile { get; set; }
         public string Remarks { get; set; }
         public string? Image { get; set; }
+        public string? Password { get; set; }
+        public bool? IsFirstLogin { get; set; }
 
+
+    }
+
+    public class CustomerLoginReqDto
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+    public class UpdatePasswordReqDto
+    {
+        public Guid CustomerGuid { get; set; }
+        public string? OldPassword { get; set; }
+        public string NewPassword { get; set; }
     }
 
 }

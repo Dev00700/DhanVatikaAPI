@@ -57,7 +57,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<CustomerResDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<CustomerResDto>>> GetListService(CommonRequestDto<CustomerReqDto> commonRequest)
         {
             var response = new CommonResponseDto<List<CustomerResDto>>();
             string proc = "Proc_Customer";
@@ -67,8 +67,46 @@ namespace MyApp.BAL
             // optional paging
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            queryParameter.Add("@Name", commonRequest.Data.Name);
+            queryParameter.Add("@EmailId", commonRequest.Data.EmailId);
+            queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
 
             var res = await DBHelperDapper.GetResponseModelList<CustomerResDto>(proc, queryParameter);
+            response.Data = res;
+            response.Flag = 1;
+            response.Message = "Success";
+            return response;
+        }
+
+        public async Task<CommonResponseDto<CustomerResDto>> CustomerLoginService(CommonRequestDto<CustomerLoginReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<CustomerResDto>();
+            string proc = "Proc_Customer";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 5);
+            // optional paging
+            queryParameter.Add("@Username", commonRequest.Data.UserName);
+            queryParameter.Add("@Password", commonRequest.Data.Password);
+
+            var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
+            response.Data = res;
+           
+            return response;
+        }
+
+        public  CommonResponseDto<ValidationMessageDto> UpdatePasswordService(CommonRequestDto<UpdatePasswordReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_Customer";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 6);
+            // optional paging
+            queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
+            queryParameter.Add("@Password", commonRequest.Data.NewPassword);
+
+            var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
