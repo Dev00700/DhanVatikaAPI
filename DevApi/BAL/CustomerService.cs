@@ -71,11 +71,9 @@ namespace MyApp.BAL
             queryParameter.Add("@EmailId", commonRequest.Data.EmailId);
             queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
 
-            var res = await DBHelperDapper.GetResponseModelList<CustomerResDto>(proc, queryParameter);
-            response.Data = res;
-            response.Flag = 1;
-            response.Message = "Success";
-            return response;
+            var res = await DBHelperDapper.GetPagedModelList<CustomerResDto>(proc, queryParameter);
+            
+            return res;
         }
 
         public async Task<CommonResponseDto<CustomerResDto>> CustomerLoginService(CommonRequestDto<CustomerLoginReqDto> commonRequest)
