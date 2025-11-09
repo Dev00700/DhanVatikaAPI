@@ -12,9 +12,9 @@
     public enum PlotStatusEnum
     {
         Available = 1,
-        Booked = 2,
-        Sold = 3,
-        UnderMaintenance = 4
+       PreBooked = 2,
+        Booked = 3,
+        Registry = 4
     }
    
 

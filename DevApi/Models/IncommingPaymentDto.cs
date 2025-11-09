@@ -28,7 +28,9 @@ namespace MyApp.Models
         public string? Remarks { get; set; }
         public string? ApproveRemarks { get; set; }
         public string? ApproveRemarksF { get; set; }
-       
+        public long? PlotId { get; set; }   
+       public  int ? PlotStatus { get; set; }
+
     }
 
     public class IPaymentReqDto
@@ -89,6 +91,21 @@ namespace MyApp.Models
         public string? SuperAdminName { get; set; }
         public string? SuperAdminApproveDate { get; set; }
         public string? SuperAdminApproveRemarks { get; set; }
+        public string? PlotCode { get; set; }
+        public string? PlotName { get; set; }
+        public string? CustomerName { get; set; }
+        public string? Mobile { get; set; }
+        public string? EmailId { get; set; }
+        public int? PlotStatus { get; set; }
+        public string PlotStatusName
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(PlotStatusEnum), PlotStatus)
+                    ? ((PlotStatusEnum)PlotStatus).ToString()
+                    : string.Empty;
+            }
+        }
     }
 
     public class IPaymentApproveDto
