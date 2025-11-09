@@ -27,6 +27,7 @@ namespace DevApi.Models
         public string? Image { get; set; }
         public string? Password { get; set; }
         public bool? IsFirstLogin { get; set; }
+        public int ? PlotId { get; set; }
 
 
     }
