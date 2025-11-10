@@ -14,7 +14,8 @@
         Available = 1,
        PreBooked = 2,
         Booked = 3,
-        Registry = 4
+        Sale = 4,
+        Registry = 5
     }
    
 
