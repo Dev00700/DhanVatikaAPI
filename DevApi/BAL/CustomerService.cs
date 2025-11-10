@@ -1,8 +1,10 @@
 using Dapper;
 using DevApi.Models;
 using DevApi.Models.Common;
+using Microsoft.Extensions.Configuration;
 using MyApp.Models;
 using MyApp.Models.Common;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,6 +12,11 @@ namespace MyApp.BAL
 {
     public class CustomerService
     {
+        private readonly IConfiguration _configuration;
+        public CustomerService(IConfiguration aconfiguration)
+        {
+            _configuration = aconfiguration;
+        }
         public async Task<CommonResponseDto<ValidationMessageDto>> AddService(CommonRequestDto<CustomerReqDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
@@ -72,7 +79,7 @@ namespace MyApp.BAL
             queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
 
             var res = await DBHelperDapper.GetPagedModelList<CustomerResDto>(proc, queryParameter);
-            
+
             return res;
         }
 
@@ -82,18 +89,18 @@ namespace MyApp.BAL
             string proc = "Proc_CustomerLogin";
             var queryParameter = new DynamicParameters();
 
-           
+
             // optional paging
             queryParameter.Add("@Username", commonRequest.Data.UserName);
             queryParameter.Add("@Password", commonRequest.Data.Password);
 
-            var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
             response.Data = res;
-           
+
             return response;
         }
 
-        public  CommonResponseDto<ValidationMessageDto> UpdatePasswordService(CommonRequestDto<UpdatePasswordReqDto> commonRequest)
+        public CommonResponseDto<ValidationMessageDto> UpdatePasswordService(CommonRequestDto<UpdatePasswordReqDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
             string proc = "Proc_Customer";
@@ -108,6 +115,55 @@ namespace MyApp.BAL
             response.Data = res;
             response.Flag = 1;
             response.Message = "Success";
+            return response;
+        }
+
+        public async Task<CommonResponseDto<List<PlotForCustomerResponseDto>>> CustomerPlotService(CommonRequestDto<PlotForCustomerRequestDto> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<List<PlotForCustomerResponseDto>>();
+            string proc = "Proc_CustomerPlot";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            var res = await DBHelperDapper.GetResponseModelList<PlotForCustomerResponseDto>(proc, queryParameter);
+
+
+            res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image  : string.Empty );
+
+            var result = res
+            .GroupBy(x => x.PlotCode)
+            .Select(g => new PlotForCustomerResponseDto
+            {
+                PlotCode = g.First().PlotCode,
+                PlotName = g.First().PlotName,
+                Address = g.First().Address,
+                Price = g.First().Price,
+                Amenities=g.First().Amenities,
+                AreaSize = g.First().AreaSize,
+                Description = g.First().Description,    
+                Facing = g.First().Facing,
+                Latitude = g.First().Latitude,
+                Longitude = g.First().Longitude,
+                LocationName = g.First().LocationName,
+                NearbyLandmarks = g.First().NearbyLandmarks,
+                UnitTypeName    = g.First().UnitTypeName,
+                Amount = g.First().Amount,
+                Remarks = g.First().Remarks,
+
+                PlotImage = g
+                     .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here
+    .Select(z => new PlotImageDto
+    {
+        PlotImageGuid = (Guid)z.PlotImageGuid,
+        PlotId = (int)z.PlotId,
+        Image = !string.IsNullOrEmpty((string)z.Image) ? imageurl + z.Image : ""
+    })
+                    .Distinct()
+                    .ToList()
+            })
+            .ToList();
+            response.Data = result;
             return response;
         }
     }

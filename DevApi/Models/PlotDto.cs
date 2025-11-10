@@ -4,7 +4,7 @@ using MyApp.Models.Common;
 
 namespace DevApi.Models
 {
-    public class PlotDto:BaseDto
+    public class PlotDto : BaseDto
     {
 
         public Guid? PlotGuid { get; set; }
@@ -24,7 +24,7 @@ namespace DevApi.Models
         public string NearbyLandmarks { get; set; }
         public bool? IsShowONWeb { get; set; }
         public string? Amenities { get; set; }
-       
+
     }
     public class PlotReqDto
     {
@@ -34,7 +34,7 @@ namespace DevApi.Models
     {
         public string? PlotName { get; set; }
         public string? PlotType { get; set; }
-        public int?   LocationId { get; set; }
+        public int? LocationId { get; set; }
     }
     public class PlotResponseDto
     {
@@ -72,12 +72,12 @@ namespace DevApi.Models
         public List<PlotImageDto>? PlotImage { get; set; }
     }
 
-    public class plotAddResDto: ValidationMessageDto
+    public class plotAddResDto : ValidationMessageDto
     {
         public long PlotId { get; set; }
     }
 
-   public class LocationDto
+    public class LocationDto
     {
         public Guid LocationGuid { get; set; }
         public int LocationId { get; set; }
@@ -85,12 +85,12 @@ namespace DevApi.Models
         public string? Image { get; set; }
         public int? TotalPlot { get; set; }
     }
-   
+
     public class PtotWebReq
     {
         public int LocationId { get; set; }
         public int PLotId { get; set; }
-      
+
     }
 
     public class PlotWebResponseDto
@@ -100,7 +100,7 @@ namespace DevApi.Models
         public string PlotCode { get; set; }
         public string PlotName { get; set; }
         public string Description { get; set; }
-       
+
         public decimal AreaSize { get; set; }
         public int Status { get; set; }
         public string PlotStatus
@@ -118,4 +118,55 @@ namespace DevApi.Models
         public string? Amenities { get; set; }
 
     }
+    public class PlotForCustomerResponseDto
+    {
+        public Guid PlotGuid { get; set; }
+        public long PlotId { get; set; }
+        public string PlotCode { get; set; }
+        public string PlotName { get; set; }
+        public string Description { get; set; }
+        public int LocationId { get; set; }
+        public string Address { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public decimal AreaSize { get; set; }
+        public int UnitTypeId { get; set; }
+        public decimal Price { get; set; }
+        public int Status { get; set; }
+        public string Facing { get; set; }
+        public string PlotType { get; set; }
+        public string NearbyLandmarks { get; set; }
+        public string PlotStatus
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(PlotStatusEnum), Status)
+                    ? ((PlotStatusEnum)Status).ToString()
+                    : string.Empty;
+            }
+        }
+
+        public string? LocationName { get; set; }
+        public string? UnitTypeName { get; set; }
+        public bool? IsShowONWeb { get; set; }
+        public string? Amenities { get; set; }
+        public string? Image { get; set; }
+        public decimal? Amount { get; set; }
+        public string? Remarks { get; set; }
+          public List<PlotImageDto>? PlotImage { get; set; }
+        public Guid? PlotImageGuid { get; set; }
+     
+
+
+
+    }
+
+    public class PlotForCustomerRequestDto
+    {
+        public long CustomerId
+        {
+            get; set;
+        }
+    }
 }
+

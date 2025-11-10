@@ -52,5 +52,11 @@ namespace MyApp.Controllers
             var result =  customerService.UpdatePasswordService(commonRequest);
             return result;
         }
+        [HttpPost("CustomerWisePlotService")]
+        public async Task< ActionResult<CommonResponseDto<List<PlotForCustomerResponseDto>>>> CustomerPLot(CommonRequestDto<PlotForCustomerRequestDto> commonRequest)
+        {
+            var result =await customerService.CustomerPlotService(commonRequest);
+            return result;
+        }
     }
 }
