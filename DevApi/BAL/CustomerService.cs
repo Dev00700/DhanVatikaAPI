@@ -79,10 +79,10 @@ namespace MyApp.BAL
         public async Task<CommonResponseDto<CustomerResDto>> CustomerLoginService(CommonRequestDto<CustomerLoginReqDto> commonRequest)
         {
             var response = new CommonResponseDto<CustomerResDto>();
-            string proc = "Proc_Customer";
+            string proc = "Proc_CustomerLogin";
             var queryParameter = new DynamicParameters();
 
-            queryParameter.Add("@ProcId", 5);
+           
             // optional paging
             queryParameter.Add("@Username", commonRequest.Data.UserName);
             queryParameter.Add("@Password", commonRequest.Data.Password);
