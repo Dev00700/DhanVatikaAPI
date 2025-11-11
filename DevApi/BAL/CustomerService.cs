@@ -129,7 +129,7 @@ namespace MyApp.BAL
             var res = await DBHelperDapper.GetResponseModelList<PlotForCustomerResponseDto>(proc, queryParameter);
 
 
-            res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image  : string.Empty );
+           // res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image  : string.Empty );
 
             var result = res
             .GroupBy(x => x.PlotCode)
@@ -150,6 +150,9 @@ namespace MyApp.BAL
                 UnitTypeName    = g.First().UnitTypeName,
                 Amount = g.First().Amount,
                 Remarks = g.First().Remarks,
+                PlotId=g.First().PlotId,
+                PlotGuid=g.First().PlotGuid,
+               
 
                 PlotImage = g
                      .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here
