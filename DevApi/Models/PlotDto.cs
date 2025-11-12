@@ -118,7 +118,7 @@ namespace DevApi.Models
         public string? Amenities { get; set; }
 
     }
-    public class PlotForCustomerResponseDto:BaseDto
+    public class PlotForCustomerResponseDto
     {
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }
@@ -155,6 +155,7 @@ namespace DevApi.Models
         public string? Remarks { get; set; }
           public List<PlotImageDto>? PlotImage { get; set; }
         public Guid? PlotImageGuid { get; set; }
+        public DateTime? PaymentDate { get; set; }
      
 
 
