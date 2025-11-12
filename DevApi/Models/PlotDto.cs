@@ -118,7 +118,7 @@ namespace DevApi.Models
         public string? Amenities { get; set; }
 
     }
-    public class PlotForCustomerResponseDto
+    public class PlotForCustomerResponseDto:BaseDto
     {
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }

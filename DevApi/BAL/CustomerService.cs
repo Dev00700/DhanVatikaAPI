@@ -152,7 +152,7 @@ namespace MyApp.BAL
                 Remarks = g.First().Remarks,
                 PlotId=g.First().PlotId,
                 PlotGuid=g.First().PlotGuid,
-               
+               CreatedOn=g.First().CreatedOn,
 
                 PlotImage = g
                      .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here
