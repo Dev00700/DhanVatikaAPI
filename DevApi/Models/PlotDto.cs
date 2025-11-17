@@ -169,5 +169,27 @@ namespace DevApi.Models
             get; set;
         }
     }
+
+    public class PLotWiseCustomerPaymentReqDto
+    {
+               public long PlotId { get; set; }
+               public long CustomerId { get; set; }
+    }
+    public class PLotWiseCustomerPaymentResDto
+    {
+        public long PlotId { get; set; }
+        public long CustomerId { get; set; }
+        public decimal Amount { get; set; }
+        public decimal AreaSize { get; set; }
+
+        public string CustomerName { get; set; }
+        public string Mobile { get; set; }
+        public string EmailId { get; set; }
+        public string PlotName { get; set; }
+        public string unitname { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        
+    }
 }
 

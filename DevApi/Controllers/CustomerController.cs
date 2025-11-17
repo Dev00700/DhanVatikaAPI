@@ -58,5 +58,12 @@ namespace MyApp.Controllers
             var result =await customerService.CustomerPlotService(commonRequest);
             return result;
         }
+
+        [HttpPost("PlotWiseCustomerPaymentListService")]
+        public async Task<ActionResult<CommonResponseDto<List<PLotWiseCustomerPaymentResDto>>>> PlotWisePaymentCustomerService(CommonRequestDto<PLotWiseCustomerPaymentReqDto> commonRequest)
+        {
+            var result = await customerService.PlotWiseCustomerPaymentSerice(commonRequest);
+            return result;
+        }
     }
 }

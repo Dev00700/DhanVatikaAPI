@@ -169,5 +169,18 @@ namespace MyApp.BAL
             response.Data = result;
             return response;
         }
+
+        public async Task<CommonResponseDto<List<PLotWiseCustomerPaymentResDto>>> PlotWiseCustomerPaymentSerice(CommonRequestDto<PLotWiseCustomerPaymentReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<List<PLotWiseCustomerPaymentResDto>>();
+            string proc = "Proc_PLotWiseCustomerPayment";
+            var queryParameter = new DynamicParameters();
+           
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            var res = await DBHelperDapper.GetResponseModelList<PLotWiseCustomerPaymentResDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
     }
 }
