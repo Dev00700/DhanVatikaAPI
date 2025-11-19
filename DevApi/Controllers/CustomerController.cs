@@ -65,5 +65,12 @@ namespace MyApp.Controllers
             var result = await customerService.PlotWiseCustomerPaymentSerice(commonRequest);
             return result;
         }
+
+        [HttpPost("GetPlotAndCustomerWiseEmiService")]
+        public async Task<ActionResult<CommonResponseDto<List<PlotAndCustomerEmiResDto>>>> PlotAndCustomerWiseGetEmiService(CommonRequestDto<PlotAndCustomerEmiReqDto> commonRequest)
+        {
+            var result = await customerService.PlotAndCustomerWiseEmiService(commonRequest);
+            return result;
+        }
     }
 }

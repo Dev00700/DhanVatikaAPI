@@ -191,5 +191,28 @@ namespace DevApi.Models
         public DateTime CreatedOn { get; set; }
         
     }
+
+    public class PlotAndCustomerEmiReqDto
+    {
+        public long PlotId { get; set; }
+        public long CustomerId { get; set; }
+    }
+    public class PlotAndCustomerEmiResDto
+    {
+        public long CustomerPaymentId { get; set; }
+        public long CustomerId { get; set; }
+        public long PlotId { get; set; }
+        public int EmiNo { get; set; }
+        public decimal Amount { get; set; }
+        public decimal PaidAmount { get; set; }
+        public DateTime EmiDate { get; set; }
+        public bool IsPaid { get; set; }
+        public string Remarks { get; set; }
+        public string CustomerName { get; set; }
+        public string Mobile { get; set; }
+        public string EmailId { get; set; }
+        public string PlotName { get; set; }
+        public string PlotCode { get; set; }
+    }
 }
 

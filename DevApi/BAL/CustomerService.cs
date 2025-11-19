@@ -182,5 +182,17 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+        public async Task<CommonResponseDto<List<PlotAndCustomerEmiResDto>>> PlotAndCustomerWiseEmiService(CommonRequestDto<PlotAndCustomerEmiReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<List<PlotAndCustomerEmiResDto>>();
+            string proc = "Proc_PlotAndCustomerWiseEmi";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            var res = await DBHelperDapper.GetResponseModelList<PlotAndCustomerEmiResDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
     }
 }
