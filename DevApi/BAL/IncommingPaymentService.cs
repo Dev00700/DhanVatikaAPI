@@ -48,6 +48,7 @@ namespace MyApp.BAL
             queryParameter.Add("@DelMark", data.DelMark);
             queryParameter.Add("@PlotId", data.PlotId);
             queryParameter.Add("@PlotStatus", data.PlotStatus);
+            queryParameter.Add("@CustomerPaymentId", data.CustomerPaymentId);
 
             var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;

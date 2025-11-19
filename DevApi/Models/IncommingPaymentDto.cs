@@ -30,6 +30,7 @@ namespace MyApp.Models
         public string? ApproveRemarksF { get; set; }
         public long? PlotId { get; set; }   
        public  int ? PlotStatus { get; set; }
+       public  long ? CustomerPaymentId { get; set; }
 
     }
 
