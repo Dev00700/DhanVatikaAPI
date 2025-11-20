@@ -4,6 +4,7 @@ using DevApi.Models.Common;
 using Microsoft.Extensions.Configuration;
 using MyApp.Models;
 using MyApp.Models.Common;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -393,6 +394,86 @@ namespace MyApp.BAL
             {
                 res.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
             }
+            response.Data = res;
+            return response;
+        }
+
+        public async Task<CommonResponseDto<List<PlotBookingListRespDto>>> PlotBookingListService(CommonRequestDto<PlotBookingListReqDto> commonRequest)
+        {
+
+            var response = new CommonResponseDto<List<PlotBookingListRespDto>>();
+            string proc = "Proc_PlotBookingViewAndList";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 1);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@CustomerName", commonRequest.Data.PlotName);
+                queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+                queryParameter.Add("@PlotName", commonRequest.Data.PlotName);
+                queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
+            }
+            queryParameter.Add("@PageNumber", commonRequest.PageSize);
+            queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            var res = await DBHelperDapper.GetPagedModelList<PlotBookingListRespDto>(proc, queryParameter);
+
+            return res;
+        }
+
+        public  CommonResponseDto<PlotBookingResponseDto> PlotBookingService(CommonRequestDto<PlotBookingListReqDto> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<PlotBookingResponseDto>();
+            string proc = "Proc_PlotBookingViewAndList";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 2);
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            var res =  DBHelperDapper.GetResponseModel<PlotBookingResponseDto>(proc, queryParameter);
+            
+            if (res != null && !string.IsNullOrEmpty(res.AadhaarImage))
+            {
+                res.AadhaarImage = $"{imageurl}{res.AadhaarImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.PANCardImage))
+            {
+                res.PANCardImage = $"{imageurl}{res.PANCardImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.VoterIdImage))
+            {
+                res.VoterIdImage = $"{imageurl}{res.VoterIdImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.PassportImage))
+            {
+                res.PassportImage = $"{imageurl}{res.PassportImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.DrivingLicenseImage))
+            {
+                res.DrivingLicenseImage = $"{imageurl}{res.DrivingLicenseImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.RationCardImage))
+            {
+                res.RationCardImage = $"{imageurl}{res.RationCardImage}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.AuthorizedSignatory))
+            {
+                res.AuthorizedSignatory = $"{imageurl}{res.AuthorizedSignatory}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.DirectorSign))
+            {
+                res.DirectorSign = $"{imageurl}{res.DirectorSign}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.ExecutiveSignature))
+            {
+                res.ExecutiveSignature = $"{imageurl}{res.ExecutiveSignature}";
+            }
+            if (res != null && !string.IsNullOrEmpty(res.PurchaserSign))
+            {
+                res.PurchaserSign = $"{imageurl}{res.PurchaserSign}";
+            }
+            res.CustomerPlotPaymentList = JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(res.PaymentDetails);
+
             response.Data = res;
             return response;
         }
