@@ -4,7 +4,7 @@ namespace DevApi.Models
 {
     public class PlotBookingReqDto:BaseDto
     {
-        public Guid BookingGuid { get; set; }
+        public Guid? BookingGuid { get; set; }
         public long BookingId { get; set; }
         public long CustomerId { get; set; }
         public long PlotId { get; set; }
