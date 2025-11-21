@@ -170,8 +170,11 @@ namespace MyApp.BAL
             })
             .ToList();
 
-            result.Select(x => x.CustomerPlotPaymentList = JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(x.PaymentDetails));
-
+            result.ForEach(x =>
+            {
+                x.CustomerPlotPaymentList = JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(x.PaymentDetails);
+                x.PaymentDetails = null;
+            });
 
             response.Data = result;
             return response;
