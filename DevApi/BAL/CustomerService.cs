@@ -110,6 +110,7 @@ namespace MyApp.BAL
             // optional paging
             queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
             queryParameter.Add("@Password", commonRequest.Data.NewPassword);
+            queryParameter.Add("@OldPassword", commonRequest.Data.OldPassword);
 
             var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
