@@ -156,10 +156,10 @@ namespace DevApi.Models
           public List<PlotImageDto>? PlotImage { get; set; }
         public Guid? PlotImageGuid { get; set; }
         public DateTime? PaymentDate { get; set; }
-     
 
 
-
+        public string? PaymentDetails { get; set; }
+        public List<CustomerPlotPaymentDto>? CustomerPlotPaymentList { get; set; }
     }
 
     public class PlotForCustomerRequestDto

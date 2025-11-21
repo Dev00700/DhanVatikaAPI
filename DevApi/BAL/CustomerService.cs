@@ -4,6 +4,7 @@ using DevApi.Models.Common;
 using Microsoft.Extensions.Configuration;
 using MyApp.Models;
 using MyApp.Models.Common;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -110,6 +111,7 @@ namespace MyApp.BAL
             // optional paging
             queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
             queryParameter.Add("@Password", commonRequest.Data.NewPassword);
+            queryParameter.Add("@OldPassword", commonRequest.Data.OldPassword);
 
             var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
@@ -128,8 +130,8 @@ namespace MyApp.BAL
             queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
             var res = await DBHelperDapper.GetResponseModelList<PlotForCustomerResponseDto>(proc, queryParameter);
 
-
-           // res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image  : string.Empty );
+           
+            // res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image  : string.Empty );
 
             var result = res
             .GroupBy(x => x.PlotCode)
@@ -153,6 +155,7 @@ namespace MyApp.BAL
                 PlotId=g.First().PlotId,
                 PlotGuid=g.First().PlotGuid,
                 PaymentDate = g.First().PaymentDate,
+                PaymentDetails=g.First().PaymentDetails,
 
                 PlotImage = g
                      .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here
@@ -166,6 +169,10 @@ namespace MyApp.BAL
                     .ToList()
             })
             .ToList();
+
+            result.Select(x => x.CustomerPlotPaymentList = JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(x.PaymentDetails));
+
+
             response.Data = result;
             return response;
         }

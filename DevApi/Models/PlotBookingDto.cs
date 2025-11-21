@@ -128,11 +128,54 @@ namespace DevApi.Models
         public string? VoterIdNumber { get; set; }
         public string? AadhaarNumber { get; set; }
         public string? RationCardNumber { get; set; }
-        public string? PANCardImage { get; set; }
-        public string? DrivingLicenseImage { get; set; }
-        public string? PassportImage { get; set; }
-        public string? VoterIdImage { get; set; }
-        public string? AadhaarImage { get; set; }
-        public string? RationCardImage { get; set; }
+        public string? PANCardImage { get; set; } = "";
+        public string? DrivingLicenseImage { get; set; } = "";
+        public string? PassportImage { get; set; } = "";
+        public string? VoterIdImage { get; set; } = "";
+        public string? AadhaarImage { get; set; } = "";
+        public string? RationCardImage { get; set; } = "";
+        public string? PaymentDetails { get; set; } 
+        public List<CustomerPlotPaymentDto>? CustomerPlotPaymentList { get; set; }
+
     }
+    public class PlotBookingListReqDto
+    {
+        public long? CustomerId { get; set; }
+        public long? PlotId { get; set; }
+        public string? CustomerName { get; set; }
+        public string? PlotCode { get; set; }
+        public string? PlotName { get; set; }
+        public string? Mobile { get; set; }
+
+    }
+    public class PlotBookingListRespDto {
+        public long CustomerId { get; set; }
+        public long PlotId { get; set; }
+        public string CustomerName { get; set; }
+        public string PlotCode { get; set; }
+        public string PlotName { get; set; }
+        public decimal TotalAmt { get; set; }
+        public decimal PaidAmt { get; set; }
+        public decimal BalanceAmt
+        {
+            get
+            {
+                return TotalAmt - PaidAmt;
+            }
+        }
+    }
+
+    public class CustomerPlotPaymentDto
+    {
+        public long customerpaymentid { get; set; }
+        public int EmiNo { get; set; }
+        public decimal amount { get; set; }
+        public decimal paidamount { get; set; }
+        public DateTime emidate { get; set; }
+        public bool ispaid { get; set; }
+        public string remarks { get; set; }
+    }
+
+
+
 }

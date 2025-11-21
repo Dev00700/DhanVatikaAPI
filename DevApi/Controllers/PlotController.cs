@@ -73,6 +73,17 @@ namespace MyApp.Controllers
             return result;
         }
 
-
+        [HttpPost("GetPlotBookingListService")]
+        public async Task<ActionResult<CommonResponseDto<List<PlotBookingListRespDto>>>> PlotBookingGetListService([FromBody] CommonRequestDto<PlotBookingListReqDto> request)
+        {
+            var result = await plotService.PlotBookingListService(request);
+            return result;
+        }
+        [HttpPost("GetPlotBookingService")]
+        public  ActionResult<CommonResponseDto<PlotBookingResponseDto>> PlotBookingGetService([FromBody] CommonRequestDto<PlotBookingListReqDto> request)
+        {
+            var result =  plotService.PlotBookingService(request);
+            return result;
+        }
     }
 }
