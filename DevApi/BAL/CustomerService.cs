@@ -204,5 +204,20 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+
+
+        public CommonResponseDto<CustomerReceiptResDto> CustomerPaymentReceiptService(CommonRequestDto<CustomerReceiptReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<CustomerReceiptResDto>();
+            string proc = "Proc_CustomerPlotPaymentReceipt";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            queryParameter.Add("@CustomerPaymentId", commonRequest.Data.CustomerPaymentId);
+            var res =  DBHelperDapper.GetResponseModel<CustomerReceiptResDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
     }
 }

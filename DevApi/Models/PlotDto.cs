@@ -215,5 +215,24 @@ namespace DevApi.Models
         public string PlotName { get; set; }
         public string PlotCode { get; set; }
     }
+
+    public class CustomerReceiptReqDto
+    {
+        public long CustomerId { get; set; }
+        public long PlotId { get; set; }
+        public long CustomerPaymentId { get; set; }
+    }
+    public class CustomerReceiptResDto
+    {
+        public int EmiNo { get; set; }
+        public decimal Amount { get; set; }
+        public decimal PaidAmount { get; set; }
+        public DateTime EMIDate { get; set; }
+        public DateTime PaidDate { get; set; }
+        public string CustomerName { get; set; }
+        public string PlotCode { get; set; }
+        public string PlotName { get; set; }
+    }
 }
+
 

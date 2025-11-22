@@ -72,5 +72,12 @@ namespace MyApp.Controllers
             var result = await customerService.PlotAndCustomerWiseEmiService(commonRequest);
             return result;
         }
+
+        [HttpPost("GetCustomerPaymentReceiptService")]
+        public ActionResult<CommonResponseDto<CustomerReceiptResDto>> CustomerPaymentGetReceiptService(CommonRequestDto<CustomerReceiptReqDto> commonRequest)
+        {
+            var result =  customerService.CustomerPaymentReceiptService(commonRequest);
+            return result;
+        }
     }
 }
