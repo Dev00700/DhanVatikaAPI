@@ -228,6 +228,14 @@ namespace MyApp.BAL
             queryParameter.Add("@IsActive", data.IsActive);
             queryParameter.Add("@DelMark", data.DelMark);
 
+            var paramNames = queryParameter.ParameterNames;
+
+            string logText = string.Join(", ",
+                paramNames.Select(name =>
+                    $"{(name.StartsWith("@") ? name : "@" + name)}='{queryParameter.Get<dynamic>(name)}'"
+                )
+            );
+
             var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
             response.Flag = 1;
