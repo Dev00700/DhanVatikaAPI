@@ -116,6 +116,7 @@ namespace DevApi.Models
         public string? UnitTypeName { get; set; }
         public bool? IsShowONWeb { get; set; }
         public string? Amenities { get; set; }
+        public string? Facing { get; set; }
 
     }
     public class PlotForCustomerResponseDto

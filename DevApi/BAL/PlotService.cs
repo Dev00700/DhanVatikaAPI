@@ -367,7 +367,7 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
-        public  CommonResponseDto<PlotResponseDto> GetPlotWebService(CommonRequestDto<PtotWebReq> commonRequest)
+        public CommonResponseDto<PlotResponseDto> GetPlotWebService(CommonRequestDto<PtotWebReq> commonRequest)
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<PlotResponseDto>();
@@ -376,8 +376,10 @@ namespace MyApp.BAL
 
             queryParameter.Add("@ProcId", 3);
             queryParameter.Add("@PlotId", commonRequest.Data.PLotId);
-            var res =  DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
+            if (res.PlotImage != null) { 
             res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+        }
             response.Data = res;
             return response;
         }
