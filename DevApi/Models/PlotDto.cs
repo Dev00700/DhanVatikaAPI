@@ -36,7 +36,7 @@ namespace DevApi.Models
         public string? PlotType { get; set; }
         public int? LocationId { get; set; }
     }
-    public class PlotResponseDto
+    public class PlotResponseDto:BaseDto
     {
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }
