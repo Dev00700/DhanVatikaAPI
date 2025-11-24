@@ -29,6 +29,7 @@ namespace DevApi.Models
         public bool? IsFirstLogin { get; set; }
         public int ? PlotId { get; set; }
         public int ? BookingFlag { get; set; }
+        public string ? PlotName { get; set; }
 
 
     }
