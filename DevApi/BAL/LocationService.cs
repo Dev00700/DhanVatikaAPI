@@ -83,7 +83,7 @@ namespace MyApp.BAL
             var res =  DBHelperDapper.GetResponseModel<LocationResDto>(proc, queryParameter);
             if (res != null && !string.IsNullOrEmpty(res.Image))
             {
-                res.Image = $"{imageurl}{res.Image}";
+                res.ImageUrl = $"{imageurl}{res.Image}";
             }
             response.Data = res;
             response.Flag = 1;
