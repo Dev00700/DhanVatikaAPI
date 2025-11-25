@@ -28,6 +28,12 @@ namespace MyApp.BAL
             queryParameter.Add("@CreatedBy", commonRequest.UserId);
 
             var data = commonRequest.Data;
+            queryParameter.Add("@Name", data.Name);
+            queryParameter.Add("@EmailId", data.EmailId);
+            queryParameter.Add("@Mobile", data.Mobile);
+            queryParameter.Add("@Remarks", data.Remarks);
+            queryParameter.Add("@Image", data.Image);
+            queryParameter.Add("@PlotId", data.PlotId);
             queryParameter.Add("@EnquiryId", data.EnquiryId);
 
             var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);

@@ -13,6 +13,7 @@ namespace DevApi.Models
         public string? Mobile { get; set; }
         public string? Remarks { get; set; }
         public string? Image { get; set; }
+        public long? PlotId{ get; set; }
        
     }
     public class CustomerResDto : ValidationMessageDto
