@@ -225,5 +225,22 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+
+        public CommonResponseDto<CustomerResDto> GetCustomerService(CommonRequestDto<CustomerReqDto> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<CustomerResDto>();
+            string proc = "Proc_GetCustomerEdit";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
+
+            var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
+            if (res != null && !string.IsNullOrEmpty(res.Image))
+            {
+                res.Image = $"{imageurl}{res.Image}";
+            }
+            response.Data = res;
+            return response;
+        }
     }
 }

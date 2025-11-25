@@ -79,5 +79,12 @@ namespace MyApp.Controllers
             var result =  customerService.CustomerPaymentReceiptService(commonRequest);
             return result;
         }
+
+        [HttpPost("GetCustomerService")]
+        public ActionResult<CommonResponseDto<CustomerResDto>> GetCustomer(CommonRequestDto<CustomerReqDto> commonRequest)
+        {
+            var result =  customerService.GetCustomerService(commonRequest);
+            return result;
+        }
     }
 }
