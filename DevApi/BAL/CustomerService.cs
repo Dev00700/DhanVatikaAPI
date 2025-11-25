@@ -50,7 +50,7 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 2);
-            queryParameter.Add("@ModifiedBy", commonRequest.UserId);
+            queryParameter.Add("@CreatedBy", commonRequest.UserId);
 
             var data = commonRequest.Data;
             queryParameter.Add("@CustomerId", data.CustomerId);
@@ -62,7 +62,7 @@ namespace MyApp.BAL
             queryParameter.Add("@Remarks", data.Remarks);
             queryParameter.Add("@Image", data.Image);
             queryParameter.Add("@IsActive", data.IsActive);
-            queryParameter.Add("@DelMark", data.DelMark);
+          
 
             var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
@@ -237,7 +237,7 @@ namespace MyApp.BAL
             var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
             if (res != null && !string.IsNullOrEmpty(res.Image))
             {
-                res.Image = $"{imageurl}{res.Image}";
+                res.ImageUrl = $"{imageurl}{res.Image}";
             }
             response.Data = res;
             return response;
