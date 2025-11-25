@@ -76,6 +76,11 @@ namespace DevApi.Controllers
                 obj.ProcId = 10;
                 obj.ParentId = commonRequestDto.Data.ParentId;
             }
+            else if (commonRequestDto.Data.SearchDDL == "Plot")
+            {
+                obj.ProcId = 11;
+              
+            }
             commonRequestDto = new CommonRequestDto<DropDownReq>
                 {
                     Data = obj,
