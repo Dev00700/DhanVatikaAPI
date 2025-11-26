@@ -214,6 +214,9 @@ namespace DevApi.Models
         public string EmailId { get; set; }
         public string PlotName { get; set; }
         public string PlotCode { get; set; }
+        public decimal DueAmount { get; set; }
+        public decimal PreviousDue { get; set; }
+        public decimal TotalPendingAmount { get; set; }
     }
 
     public class CustomerReceiptReqDto
