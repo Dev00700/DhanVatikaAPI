@@ -164,6 +164,7 @@ namespace MyApp.BAL
                 PlotGuid=g.First().PlotGuid,
                 PaymentDate = g.First().PaymentDate,
                 PaymentDetails=g.First().PaymentDetails,
+               
 
                 PlotImage = g
                      .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here

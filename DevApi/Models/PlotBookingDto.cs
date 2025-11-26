@@ -170,7 +170,6 @@ namespace DevApi.Models
         public long customerpaymentid { get; set; }
         public int EmiNo { get; set; }
         public decimal amount { get; set; }
-        public decimal paidamount { get; set; }
         public DateTime emidate { get; set; }
         public bool ispaid { get; set; }
         public string remarks { get; set; }
