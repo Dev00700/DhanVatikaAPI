@@ -61,6 +61,8 @@ namespace MyApp.BAL
             queryParameter.Add("@Mobile", data.Mobile);
             queryParameter.Add("@Remarks", data.Remarks);
             queryParameter.Add("@Image", data.Image);
+            queryParameter.Add("@PlotId", data.PlotId);
+            queryParameter.Add("@CustomerPlotId", data.CustomerPlotId);
             queryParameter.Add("@IsActive", data.IsActive);
           
 

@@ -14,7 +14,7 @@ namespace DevApi.Models
         public string? Remarks { get; set; }
         public string? Image { get; set; }
         public long? PlotId{ get; set; }
-       
+        public long? CustomerPlotId { get; set; }
     }
     public class CustomerResDto : ValidationMessageDto
     {
@@ -33,6 +33,10 @@ namespace DevApi.Models
         public string ? PlotName { get; set; }
         public bool ? IsActive { get; set; }
         public string ? ImageUrl { get; set; }
+        public long ? CustomerPlotId { get; set; }
+      
+        
+
 
 
     }
