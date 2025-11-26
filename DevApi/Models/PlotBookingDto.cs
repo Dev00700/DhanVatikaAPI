@@ -174,6 +174,10 @@ namespace DevApi.Models
         public DateTime emidate { get; set; }
         public bool ispaid { get; set; }
         public string remarks { get; set; }
+        public decimal PreviousDue { get; set; }
+        public decimal PaidAmount { get; set; }
+        public decimal DueAmount { get; set; }
+        public decimal TotalPendingAmount { get; set; }
     }
 
 
