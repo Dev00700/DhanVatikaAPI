@@ -107,6 +107,7 @@ namespace MyApp.Models
                     : string.Empty;
             }
         }
+        public long PlotId { get; set; }
     }
 
     public class IPaymentApproveDto
