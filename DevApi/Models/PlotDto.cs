@@ -244,6 +244,8 @@ namespace DevApi.Models
         public DateTime PaidDate { get; set; }
         public string CustomerName { get; set; }
         public string PlotCode { get; set; }
+        public string SubPlotCode { get; set; }
+        public string Plot_Code { get; set; }
         public string PlotName { get; set; }
     }
 }
