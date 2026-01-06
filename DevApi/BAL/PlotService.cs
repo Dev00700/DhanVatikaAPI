@@ -2,6 +2,7 @@ using Dapper;
 using DevApi.Models;
 using DevApi.Models.Common;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using MyApp.Models;
 using MyApp.Models.Common;
 using Newtonsoft.Json;
@@ -29,6 +30,8 @@ namespace MyApp.BAL
             var data = commonRequest.Data;
           
             queryParameter.Add("@PlotName", data.PlotName);
+            queryParameter.Add("@Plot_Code", data.Plot_Code);
+            queryParameter.Add("@SubPlotCode", data.SubPlotCode);
             queryParameter.Add("@Description", data.Description);
             queryParameter.Add("@LocationId", data.LocationId);
             queryParameter.Add("@Address", data.Address);
@@ -93,6 +96,8 @@ namespace MyApp.BAL
             queryParameter.Add("@CreatedBy", commonRequest.UserId);
             queryParameter.Add("@PlotGuid", data.PlotGuid);
             queryParameter.Add("@PlotName", data.PlotName);
+            queryParameter.Add("@Plot_Code", data.Plot_Code);
+            queryParameter.Add("@SubPlotCode", data.SubPlotCode);
             queryParameter.Add("@Description", data.Description);
             queryParameter.Add("@LocationId", data.LocationId);
             queryParameter.Add("@Address", data.Address);
@@ -357,7 +362,7 @@ namespace MyApp.BAL
 
             queryParameter.Add("@ProcId", 1);
             var res = await DBHelperDapper.GetResponseModelList<LocationDto>(proc, queryParameter);
-            res.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image : "");
             response.Data = res;
             return response;
         }
@@ -386,7 +391,7 @@ namespace MyApp.BAL
             queryParameter.Add("@PlotId", commonRequest.Data.PLotId);
             var res = DBHelperDapper.GetModelFromJson<PlotResponseDto>(proc, queryParameter);
             if (res.PlotImage != null) { 
-            res.PlotImage.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+            res.PlotImage.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image : "");
         }
             response.Data = res;
             return response;
@@ -402,7 +407,7 @@ namespace MyApp.BAL
             var res =await DBHelperDapper.GetResponseModelList<PlotResponseDto>(proc, queryParameter);
             if (res != null)
             {
-                res.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
+                res.ForEach(x => x.Image = !string.IsNullOrEmpty(x.Image) ? imageurl + x.Image : "");
             }
             response.Data = res;
             return response;

@@ -146,6 +146,8 @@ namespace MyApp.BAL
             .Select(g => new PlotForCustomerResponseDto
             {
                 PlotCode = g.First().PlotCode,
+                Plot_Code= g.First().Plot_Code,
+                SubPlotCode= g.First().SubPlotCode,
                 PlotName = g.First().PlotName,
                 Address = g.First().Address,
                 Price = g.First().Price,
@@ -167,7 +169,7 @@ namespace MyApp.BAL
                
 
                 PlotImage = g
-                     .Where(z => z.PlotImageGuid != Guid.Empty)   // << fix here
+                     .Where(z => ( z.PlotImageGuid != null && z.PlotImageGuid != Guid.Empty))   // << fix here
     .Select(z => new PlotImageDto
     {
         PlotImageGuid = (Guid)z.PlotImageGuid,

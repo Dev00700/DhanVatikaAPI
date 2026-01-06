@@ -93,6 +93,8 @@ namespace MyApp.Models
         public string? SuperAdminApproveDate { get; set; }
         public string? SuperAdminApproveRemarks { get; set; }
         public string? PlotCode { get; set; }
+        public string? Plot_Code { get; set; }
+        public string? SubPlotCode { get; set; }
         public string? PlotName { get; set; }
         public string? CustomerName { get; set; }
         public string? Mobile { get; set; }

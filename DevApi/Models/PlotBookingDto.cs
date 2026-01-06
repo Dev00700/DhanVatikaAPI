@@ -102,6 +102,8 @@ namespace DevApi.Models
         public string? PlotCity { get; set; }
         public string? KhasraNo { get; set; }
         public string? PlotNo { get; set; }
+        public string? Plot_Code { get; set; }
+        public string? SubPlotCode { get; set; }
         public string? PlotSize { get; set; }
         public decimal? AreaSqFt { get; set; }
         public decimal? RatePerSqFt { get; set; }
@@ -153,6 +155,8 @@ namespace DevApi.Models
         public long PlotId { get; set; }
         public string CustomerName { get; set; }
         public string PlotCode { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string PlotName { get; set; }
         public decimal TotalAmt { get; set; }
         public decimal PaidAmt { get; set; }

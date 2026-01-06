@@ -10,6 +10,8 @@ namespace DevApi.Models
         public Guid? PlotGuid { get; set; }
         public long? PlotId { get; set; }
         public string PlotName { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string Description { get; set; }
         public int LocationId { get; set; }
         public string Address { get; set; }
@@ -41,6 +43,8 @@ namespace DevApi.Models
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }
         public string PlotCode { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string PlotName { get; set; }
         public string Description { get; set; }
         public int LocationId { get; set; }
@@ -98,6 +102,8 @@ namespace DevApi.Models
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }
         public string PlotCode { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string PlotName { get; set; }
         public string Description { get; set; }
 
@@ -124,6 +130,8 @@ namespace DevApi.Models
         public Guid PlotGuid { get; set; }
         public long PlotId { get; set; }
         public string PlotCode { get; set; }
+        public string SubPlotCode { get; set; }
+        public string Plot_Code { get; set; }
         public string PlotName { get; set; }
         public string Description { get; set; }
         public int LocationId { get; set; }
@@ -214,6 +222,8 @@ namespace DevApi.Models
         public string EmailId { get; set; }
         public string PlotName { get; set; }
         public string PlotCode { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public decimal DueAmount { get; set; }
         public decimal PreviousDue { get; set; }
         public decimal TotalPendingAmount { get; set; }

@@ -20,6 +20,8 @@ namespace DevApi.Models
         public long EnquiryId { get; set; }
         public long PlotId { get; set; }
         public string Name { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string? Remarks { get; set; }
