@@ -1,4 +1,4 @@
-﻿namespace DevApi.Models.Enums
+﻿  namespace DevApi.Models.Enums
 {
    
         public enum ApprovalStatus
