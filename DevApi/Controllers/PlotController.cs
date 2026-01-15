@@ -85,5 +85,11 @@ namespace MyApp.Controllers
             var result =  plotService.PlotBookingService(request);
             return result;
         }
+        [HttpPost("UpdatePlotStatusService")]
+        public async Task< ActionResult<CommonResponseDto<ValidationMessageDto>>> PlotStatusUpdate([FromBody] CommonRequestDto<PlotStatusUpdateDto> request)
+        {
+            var result = await plotService.PlotStatusUpdateService(request);
+            return result;
+        }
     }
 }

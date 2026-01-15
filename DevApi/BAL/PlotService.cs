@@ -492,5 +492,26 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+
+        public async Task<CommonResponseDto<ValidationMessageDto>> PlotStatusUpdateService(CommonRequestDto<PlotStatusUpdateDto> commonRequest)
+        {
+
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_PlotStatusUpdate";
+            var queryParameter = new DynamicParameters();
+
+            
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+                queryParameter.Add("@PlotStatus", commonRequest.Data.PlotStatus);
+               
+            }
+         
+            var res = await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
+            response.Flag = res.Flag;
+            response.Message = res.Message;
+            return response;
+        }
     }
 }

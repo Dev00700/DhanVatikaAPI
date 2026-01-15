@@ -183,6 +183,10 @@ namespace DevApi.Models
         public decimal TotalPendingAmount { get; set; }
     }
 
-
+    public class PlotStatusUpdateDto
+    {
+        public long PlotId { get; set; }
+        public int PlotStatus { get; set; }
+    }
 
 }
