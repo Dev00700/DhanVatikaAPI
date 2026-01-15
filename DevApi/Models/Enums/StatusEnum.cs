@@ -15,7 +15,8 @@
        PreBooked = 2,
         Booked = 3,
         Sold = 4,
-        Registry = 5
+        Registry = 5,
+        Hold=6
     }
    
 
