@@ -247,6 +247,8 @@ namespace DevApi.Models
         public string SubPlotCode { get; set; }
         public string Plot_Code { get; set; }
         public string PlotName { get; set; }
+        public string Mobile { get; set; }
+        public string Address { get; set; }
     }
 }
 
