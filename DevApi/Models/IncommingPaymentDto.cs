@@ -110,6 +110,7 @@ namespace MyApp.Models
             }
         }
         public long PlotId { get; set; }
+        public bool ReceiptFlag { get; set; }
     }
 
     public class IPaymentApproveDto
