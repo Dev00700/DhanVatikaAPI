@@ -30,6 +30,7 @@ namespace MyApp.BAL
             var queryparameter = new DynamicParameters();
             queryparameter.Add("@ProcId", 1);
             queryparameter.Add("@UserName", commonRequest.Data.UserName);
+            queryparameter.Add("@UserCode", commonRequest.Data.UserCode);
             queryparameter.Add("@Email", commonRequest.Data.Email);
             queryparameter.Add("@MobileNo", commonRequest.Data.MobileNo);
             queryparameter.Add("@RoleId", commonRequest.Data.RoleId);
@@ -77,6 +78,7 @@ namespace MyApp.BAL
             var queryparameter = new DynamicParameters();
             queryparameter.Add("@ProcId", 2);
             queryparameter.Add("@UserName", commonRequest.Data.UserName);
+            queryparameter.Add("@UserCode", commonRequest.Data.UserCode);
             queryparameter.Add("@Email", commonRequest.Data.Email);
             queryparameter.Add("@MobileNo", commonRequest.Data.MobileNo);
             queryparameter.Add("@password", Crypto.Encrypt(commonRequest.Data.Password));
