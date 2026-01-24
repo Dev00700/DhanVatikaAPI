@@ -249,7 +249,7 @@ namespace DevApi.Models
         public string PlotName { get; set; }
         public string Mobile { get; set; }
         public string Address { get; set; }
-        public bool ReceiptFlag { get; set; }
+       
     }
 }
 
