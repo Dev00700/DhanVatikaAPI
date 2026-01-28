@@ -169,6 +169,7 @@ namespace DevApi.Models
 
         public string? PaymentDetails { get; set; }
         public List<CustomerPlotPaymentDto>? CustomerPlotPaymentList { get; set; }
+        
     }
 
     public class PlotForCustomerRequestDto

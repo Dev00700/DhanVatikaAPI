@@ -182,6 +182,8 @@ namespace DevApi.Models
         public decimal DueAmount { get; set; }
         public decimal TotalPendingAmount { get; set; }
         public bool ReceiptFlag { get; set; }
+        public string? NewRemarks { get; set; }
+        public bool? IsRejected { get; set; }
     }
 
     public class PlotStatusUpdateDto
