@@ -162,6 +162,8 @@ namespace DevApi.Models
         public string? Image { get; set; }
         public decimal? Amount { get; set; }
         public string? Remarks { get; set; }
+        public string? NewRemarks { get; set; }
+        public bool? IsRejected { get; set; }
           public List<PlotImageDto>? PlotImage { get; set; }
         public Guid? PlotImageGuid { get; set; }
         public DateTime? PaymentDate { get; set; }
@@ -228,6 +230,8 @@ namespace DevApi.Models
         public decimal DueAmount { get; set; }
         public decimal PreviousDue { get; set; }
         public decimal TotalPendingAmount { get; set; }
+        public bool isrejected { get; set; }
+        public string newremarks { get; set; }
     }
 
     public class CustomerReceiptReqDto
