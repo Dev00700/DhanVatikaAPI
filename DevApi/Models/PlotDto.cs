@@ -256,6 +256,12 @@ namespace DevApi.Models
         public string Address { get; set; }
        
     }
+    public class CustomerPlotCancelReqDto
+    {
+        public long CustomerId { get; set; }
+        public long PlotId { get; set; }
+        public string Remarks { get; set; }
+    }
 }
 
 

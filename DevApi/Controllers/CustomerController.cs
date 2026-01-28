@@ -86,5 +86,12 @@ namespace MyApp.Controllers
             var result =  customerService.GetCustomerService(commonRequest);
             return result;
         }
+
+        [HttpPost("CustomerPlotCancelService")]
+        public ActionResult<CommonResponseDto<ValidationMessageDto>> CustomerCancelPlotService(CommonRequestDto<CustomerPlotCancelReqDto> commonRequest)
+        {
+            var result = customerService.CustomerPlotCancelService(commonRequest);
+            return result;
+        }
     }
 }

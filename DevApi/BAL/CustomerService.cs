@@ -247,5 +247,20 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+
+        public CommonResponseDto<ValidationMessageDto> CustomerPlotCancelService(CommonRequestDto<CustomerPlotCancelReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_CancelCustomerPlot";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            queryParameter.Add("@Remarks", commonRequest.Data.Remarks);
+
+            var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+            
+            response.Data = res;
+            return response;
+        }
     }
 }
