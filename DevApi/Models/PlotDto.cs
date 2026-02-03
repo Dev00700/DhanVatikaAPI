@@ -232,6 +232,7 @@ namespace DevApi.Models
         public decimal TotalPendingAmount { get; set; }
         public bool isrejected { get; set; }
         public string newremarks { get; set; }
+        public bool ReceiptFlag { get; set; }
     }
 
     public class CustomerReceiptReqDto
