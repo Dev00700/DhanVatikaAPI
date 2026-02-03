@@ -43,6 +43,8 @@ namespace MyApp.Models
         public DateTime? PaymentDate { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
+        public string? PlotCode { get; set; }
+        public string? SubCode { get; set; }
     }
 
     public class IPaymentResponseDto : ValidationMessageDto

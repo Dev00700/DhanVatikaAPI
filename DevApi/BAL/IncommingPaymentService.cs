@@ -112,6 +112,8 @@ namespace MyApp.BAL
             queryParameter.Add("@PaymentDate", commonRequest.Data.PaymentDate);
             queryParameter.Add("@Year", commonRequest.Data.Year);
             queryParameter.Add("@Month", commonRequest.Data.Month);
+            queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+            queryParameter.Add("@SubCode", commonRequest.Data.SubCode);
 
             var res =await DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
             res.Data.ForEach(x => x.Image = x.Image !=""? imageurl + x.Image:"");
