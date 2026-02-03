@@ -233,6 +233,7 @@ namespace DevApi.Models
         public bool isrejected { get; set; }
         public string newremarks { get; set; }
         public bool ReceiptFlag { get; set; }
+        public Guid? IPaymentGuid { get; set; }
     }
 
     public class CustomerReceiptReqDto
