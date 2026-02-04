@@ -35,6 +35,8 @@ namespace DevApi.Models
     public class PlotSerchDto
     {
         public string? PlotName { get; set; }
+        public string Plot_Code { get; set; }
+        public string SubPlotCode { get; set; }
         public string? PlotType { get; set; }
         public int? LocationId { get; set; }
     }

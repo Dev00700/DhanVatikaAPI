@@ -132,6 +132,8 @@ namespace MyApp.BAL
 
             queryParameter.Add("@ProcId", 3);
             queryParameter.Add("@PlotName",commonRequest.Data.PlotName);
+            queryParameter.Add("@Plot_Code", commonRequest.Data.Plot_Code);
+            queryParameter.Add("@SubPlotCode", commonRequest.Data.SubPlotCode);
             queryParameter.Add("@PlotType", commonRequest.Data.PlotType);
             queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
