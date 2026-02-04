@@ -427,6 +427,7 @@ namespace MyApp.BAL
             {
                 queryParameter.Add("@CustomerName", commonRequest.Data.PlotName);
                 queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+                queryParameter.Add("@SubPlotCode", commonRequest.Data.SubPlotCode);
                 queryParameter.Add("@PlotName", commonRequest.Data.PlotName);
                 queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
             }

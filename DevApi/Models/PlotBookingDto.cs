@@ -146,6 +146,7 @@ namespace DevApi.Models
         public long? PlotId { get; set; }
         public string? CustomerName { get; set; }
         public string? PlotCode { get; set; }
+        public string? SubPlotCode { get; set; }
         public string? PlotName { get; set; }
         public string? Mobile { get; set; }
 
