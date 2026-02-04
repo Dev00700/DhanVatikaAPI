@@ -35,7 +35,7 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("GetLocationListService")]
-        public async Task<ActionResult<CommonResponseDto<List<LocationResDto>>>> GetLocationList(CommonRequestDto commonRequest)
+        public async Task<ActionResult<CommonResponseDto<List<LocationResDto>>>> GetLocationList(CommonRequestDto<LocationResDto> commonRequest)
         {
             var result = await locationService.GetListService(commonRequest);
             return result;

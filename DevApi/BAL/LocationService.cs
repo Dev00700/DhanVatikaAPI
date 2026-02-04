@@ -54,7 +54,7 @@ namespace MyApp.BAL
             return response;
         }
 
-        public async Task<CommonResponseDto<List<LocationResDto>>> GetListService(CommonRequestDto commonRequest)
+        public async Task<CommonResponseDto<List<LocationResDto>>> GetListService(CommonRequestDto <LocationResDto> commonRequest)
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<List<LocationResDto>>();
@@ -62,6 +62,7 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3); // 3 for list
+            queryParameter.Add("@LocationName", commonRequest.Data.LocationName);
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
             var res = await DBHelperDapper.GetPagedModelList<LocationResDto>(proc, queryParameter);
