@@ -18,6 +18,8 @@ namespace DevApi.Models
         public int UserId { get; set; }
         public string? Image { get; set; }
         public string? PaymentMode { get; set; }
+        public long? PlotId { get; set; }
+        public string? PlotCode { get; set; }
     }
     public class IOutgoingReqDto
     {
@@ -76,6 +78,8 @@ namespace DevApi.Models
         public string? SuperAdminApproveDate { get; set; }
         public string? SuperAdminApproveRemarks { get; set; }
         public bool? IsDisabled { get; set; }
+        public long? PlotId { get; set; }
+        public string? PlotCode { get; set; }
     }
 
     public class OPaymentApproveDto
