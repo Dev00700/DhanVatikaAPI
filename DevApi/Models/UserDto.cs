@@ -50,4 +50,6 @@ namespace MyApp.Models
         public int? IsAdmin { get; set; }
         
     }
+
+    
 }
