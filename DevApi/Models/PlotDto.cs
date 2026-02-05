@@ -96,6 +96,7 @@ namespace DevApi.Models
     {
         public int LocationId { get; set; }
         public int PLotId { get; set; }
+        public int? Status { get; set; }
 
     }
 

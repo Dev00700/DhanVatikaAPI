@@ -425,7 +425,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ProcId", 1);
             if (commonRequest.Data != null)
             {
-                queryParameter.Add("@CustomerName", commonRequest.Data.PlotName);
+                queryParameter.Add("@CustomerName", commonRequest.Data.CustomerName);
                 queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
                 queryParameter.Add("@SubPlotCode", commonRequest.Data.SubPlotCode);
                 queryParameter.Add("@PlotName", commonRequest.Data.PlotName);
