@@ -71,6 +71,7 @@ namespace MyApp.BAL
             queryParameter.Add("@DelMark", data.DelMark);
             queryParameter.Add("@Remarks", data.Remarks);
             queryParameter.Add("@CreatedBy", commonRequest.UserId);
+            queryParameter.Add("@PlotId", data.PlotId);
 
             var res =await DBHelperDapper.GetAddResponseModel<ValidationMessageDto>(proc, queryParameter);
             response.Data = res;
