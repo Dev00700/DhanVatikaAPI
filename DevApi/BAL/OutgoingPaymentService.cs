@@ -92,6 +92,7 @@ namespace MyApp.BAL
             queryParameter.Add("@ExpenseTitle", commonRequest.Data.ExpenseTitle);
             queryParameter.Add("@PaymentMode", commonRequest.Data.PaymentModeId);
             queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
+            queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
 
             var res =await DBHelperDapper.GetPagedModelList<IOutgoingResponseDto>(proc, queryParameter);
             res.Data.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");

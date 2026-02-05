@@ -378,6 +378,7 @@ namespace MyApp.BAL
 
             queryParameter.Add("@ProcId", 2);
             queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
+            queryParameter.Add("@Status", commonRequest.Data.Status);
             var res = await DBHelperDapper.GetResponseModelList<PlotWebResponseDto>(proc, queryParameter);
             response.Data = res;
             return response;

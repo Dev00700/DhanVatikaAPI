@@ -29,6 +29,7 @@ namespace DevApi.Models
         public string? ReferenceNo { get; set; }
         public int? Year { get; set; }
         public int? Month { get; set; }
+        public string? PlotCode { get; set; }
     }
     public class IOutgoingResponseDto : ValidationMessageDto
     {
