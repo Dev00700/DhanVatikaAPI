@@ -93,5 +93,11 @@ namespace MyApp.Controllers
             var result = customerService.CustomerPlotCancelService(commonRequest);
             return result;
         }
+        [HttpPost("CustomerAddMultiplePlotService")]
+        public ActionResult<CommonResponseDto<ValidationMessageDto>> CustomerMultiplePlotAddService(CommonRequestDto<CustomerAddMultiplePlot> commonRequest)
+        {
+            var result = customerService.CustomerAddMultiplePlotService(commonRequest);
+            return result;
+        }
     }
 }

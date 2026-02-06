@@ -262,5 +262,20 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+        public CommonResponseDto<ValidationMessageDto> CustomerAddMultiplePlotService(CommonRequestDto<CustomerAddMultiplePlot> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_Customer";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 7);
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
+            queryParameter.Add("@Flag", commonRequest.Data.Flag);
+
+            var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+
+            response.Data = res;
+            return response;
+        }
     }
 }

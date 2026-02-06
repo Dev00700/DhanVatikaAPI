@@ -267,6 +267,13 @@ namespace DevApi.Models
         public long PlotId { get; set; }
         public string Remarks { get; set; }
     }
+
+    public class CustomerAddMultiplePlot
+    {
+        public long CustomerId { get; set; }
+        public long PlotId { get; set; }
+        public int Flag { get; set; } // when flag is 1 then add plot to customer and when flag is 0 then remove plot from customer
+    }
 }
 
 
