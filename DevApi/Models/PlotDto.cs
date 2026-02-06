@@ -272,7 +272,7 @@ namespace DevApi.Models
     {
         public long CustomerId { get; set; }
         public long PlotId { get; set; }
-        public int Flag { get; set; } // when flag is 1 then add plot to customer and when flag is 0 then remove plot from customer
+        public int Flag { get; set; } // when flag is 1 then add plot to customer and when flag is 2 then remove plot from customer
     }
 }
 
