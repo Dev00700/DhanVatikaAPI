@@ -43,5 +43,13 @@ namespace DevApi.Controllers
             var result = await plotService.GetPlotWebHomeService(request);
             return result;
         }
+
+
+        //[HttpPost("CheckCusmtomerService")]
+        //public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetHomePlotWeb([FromBody] CommonRequestDto request)
+        //{
+        //    var result = await plotService.GetPlotWebHomeService(request);
+        //    return result;
+        //}
     }
 }

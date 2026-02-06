@@ -34,12 +34,21 @@ namespace MyApp.Controllers
             return result;
         }
 
+        //[HttpPost("GetCustomerListService")]
+        //public async Task<ActionResult<CommonResponseDto<List<CustomerResDtoV2>>>> GetCustomerList(CommonRequestDto<CustomerReqDto> commonRequest)
+        //{
+        //    // var result = await customerService.GetListService(commonRequest);
+        //    var result = await customerService.GetListServiceV2(commonRequest);
+        //    return result;
+        //}
         [HttpPost("GetCustomerListService")]
-        public async Task<ActionResult<CommonResponseDto<List<CustomerResDto>>>> GetCustomerList(CommonRequestDto<CustomerReqDto> commonRequest)
+        public ActionResult<CommonResponseDto<List<CustomerResDtoV2>>> GetCustomerList(CommonRequestDto<CustomerReqDto> commonRequest)
         {
-            var result = await customerService.GetListService(commonRequest);
+            // var result = await customerService.GetListService(commonRequest);
+            var result =  customerService.GetListServiceV2(commonRequest);
             return result;
         }
+
         [HttpPost("CustomerLoginService")]
         public async Task<ActionResult<CommonResponseDto<CustomerResDto>>> CustomerLogin(CommonRequestDto<CustomerLoginReqDto> commonRequest)
         {

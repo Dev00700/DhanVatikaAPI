@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DevApi.Models.Common;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -124,6 +125,71 @@ namespace MyApp.Models
                 return default;
             }
         }
+        public static List<T> GetListWithJsonColumn<T, TItem>(
+    string spName,
+    DynamicParameters p,
+    string jsonColumnName = "JsonData"
+)
+    where T : new()
+        {
+            using (SqlConnection con = new SqlConnection(connection()))
+            {
+                con.Open();
+
+                // Read all rows as dynamic
+                var rows = con.Query(
+                    spName,
+                    p,
+                    commandType: CommandType.StoredProcedure
+                ).ToList();
+
+                List<T> result = new List<T>();
+
+                foreach (var row in rows)
+                {
+                    // Convert row to dictionary
+                    var dict = (IDictionary<string, object>)row;
+
+                    // Create parent object
+                    T parent = new T();
+
+                    // Fill normal columns
+                    foreach (var prop in typeof(T).GetProperties())
+                    {
+                        if (dict.ContainsKey(prop.Name) && dict[prop.Name] != null)
+                        {
+                            var convertedValue = SafeConvert(dict[prop.Name], prop.PropertyType);
+                            prop.SetValue(parent, convertedValue);
+                        }
+                    }
+
+
+                    // Handle JSON column
+                    if (dict.ContainsKey(jsonColumnName) && dict[jsonColumnName] != null)
+                    {
+                        var json = dict[jsonColumnName].ToString();
+
+                        if (!string.IsNullOrEmpty(json))
+                        {
+                            var listData =
+                                JsonConvert.DeserializeObject<List<TItem>>(json);
+
+                            var listProp = typeof(T).GetProperties()
+                                .FirstOrDefault(x => x.PropertyType == typeof(List<TItem>));
+
+                            if (listProp != null)
+                                listProp.SetValue(parent, listData);
+                        }
+                    }
+
+                    result.Add(parent);
+                }
+
+                return result;
+            }
+        }
+
+
 
         public static async Task<CommonResponseDto<List<T>>> GetPagedModelList<T>(
             string spName,
@@ -161,6 +227,32 @@ namespace MyApp.Models
             }
             return sb.ToString();
         }
+
+        private static object SafeConvert(object value, Type targetType)
+        {
+            if (value == null || value == DBNull.Value)
+                return null;
+
+            // Nullable<T> handle
+            var underlyingType = Nullable.GetUnderlyingType(targetType);
+            if (underlyingType != null)
+                targetType = underlyingType;
+
+            // Guid handle
+            if (targetType == typeof(Guid))
+                return Guid.Parse(value.ToString());
+
+            // Enum handle
+            if (targetType.IsEnum)
+                return Enum.Parse(targetType, value.ToString());
+
+            // Same type
+            if (targetType == value.GetType())
+                return value;
+
+            return Convert.ChangeType(value, targetType);
+        }
+
     }
 
 } 

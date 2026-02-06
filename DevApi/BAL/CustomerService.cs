@@ -92,6 +92,28 @@ namespace MyApp.BAL
             return res;
         }
 
+        public CommonResponseDto<List<CustomerResDtoV2>> GetListServiceV2(CommonRequestDto<CustomerReqDto> commonRequest)
+        {
+            var response = new CommonResponseDto<List<CustomerResDtoV2>>();
+            string proc = "Proc_Customer";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 3);
+            // optional paging
+            queryParameter.Add("@PageNumber", commonRequest.PageSize);
+            queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@Name", commonRequest.Data.Name);
+                queryParameter.Add("@EmailId", commonRequest.Data.EmailId);
+                queryParameter.Add("@Mobile", commonRequest.Data.Mobile);
+            }
+
+            var res =  DBHelperDapper.GetListWithJsonColumn<CustomerResDtoV2, customerPlotDetailV2>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
+
         public async Task<CommonResponseDto<CustomerResDto>> CustomerLoginService(CommonRequestDto<CustomerLoginReqDto> commonRequest)
         {
             var response = new CommonResponseDto<CustomerResDto>();
@@ -271,6 +293,7 @@ namespace MyApp.BAL
             queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
             queryParameter.Add("@PlotId", commonRequest.Data.PlotId);
             queryParameter.Add("@Flag", commonRequest.Data.Flag);
+            queryParameter.Add("@CreatedBy", commonRequest.UserId);
 
             var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
 
