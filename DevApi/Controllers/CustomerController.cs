@@ -89,10 +89,16 @@ namespace MyApp.Controllers
             return result;
         }
 
+        //[HttpPost("GetCustomerService")]
+        //public ActionResult<CommonResponseDto<CustomerResDto>> GetCustomer(CommonRequestDto<CustomerReqDto> commonRequest)
+        //{
+        //    var result =  customerService.GetCustomerService(commonRequest);
+        //    return result;
+        //}
         [HttpPost("GetCustomerService")]
         public ActionResult<CommonResponseDto<CustomerResDto>> GetCustomer(CommonRequestDto<CustomerReqDto> commonRequest)
         {
-            var result =  customerService.GetCustomerService(commonRequest);
+            var result = customerService.GetCustomerServiceV2(commonRequest);
             return result;
         }
 

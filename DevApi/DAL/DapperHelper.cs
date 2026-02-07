@@ -274,6 +274,87 @@ namespace MyApp.Models
                 return result;
             }
         }
+        public static CommonResponseDto<T> GetSingleWithJsonColumn<T, TItem>(
+     string spName,
+     DynamicParameters p,
+     string jsonColumnName = "JsonData"
+ )
+     where T : new()
+        {
+            using (SqlConnection con = new SqlConnection(connection()))
+            {
+                con.Open();
+
+                var result = new CommonResponseDto<T>
+                {
+                    Data = new T(),
+                    Flag = 1,
+                    Message = "Success"
+                };
+
+                using (var multi = con.QueryMultiple(
+                    spName,
+                    p,
+                    commandType: CommandType.StoredProcedure
+                ))
+                {
+                    // 🔹 Result set 1: single row
+                    var row = multi.Read().FirstOrDefault();
+
+                    if (row == null)
+                    {
+                        result.Flag = 0;
+                        result.Message = "No record found";
+                        return result;
+                    }
+
+                    var dict = (IDictionary<string, object>)row;
+                    T parent = new T();
+
+                    // 🔹 Normal columns → T
+                    foreach (var prop in typeof(T).GetProperties())
+                    {
+                        if (dict.ContainsKey(prop.Name) && dict[prop.Name] != null)
+                        {
+                            var convertedValue = SafeConvert(dict[prop.Name], prop.PropertyType);
+                            prop.SetValue(parent, convertedValue);
+                        }
+                    }
+
+                    // 🔹 JSON column → List<TItem>
+                    if (dict.ContainsKey(jsonColumnName) && dict[jsonColumnName] != null)
+                    {
+                        var json = dict[jsonColumnName].ToString();
+
+                        if (!string.IsNullOrEmpty(json))
+                        {
+                            var listData = JsonConvert.DeserializeObject<List<TItem>>(json);
+
+                            var listProp = typeof(T).GetProperties()
+                                .FirstOrDefault(x => x.PropertyType == typeof(List<TItem>));
+
+                            if (listProp != null)
+                                listProp.SetValue(parent, listData);
+                        }
+                    }
+
+                    result.Data = parent;
+
+                    // 🔹 Result set 2: page / extra info (optional)
+                    if (!multi.IsConsumed)
+                    {
+                        var pageInfo = multi.ReadFirstOrDefault<PageInfoDto>();
+                        result.PageSize = pageInfo?.PageSize ?? 1;
+                        result.PageRecordCount = pageInfo?.PageRecordCount ?? 1;
+                        result.TotalRecordCount = pageInfo?.TotalRecordCount ?? 1;
+                    }
+                }
+
+                return result;
+            }
+        }
+
+
 
 
 

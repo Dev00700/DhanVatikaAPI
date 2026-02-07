@@ -253,7 +253,26 @@ namespace MyApp.BAL
             return response;
         }
 
-        public CommonResponseDto<CustomerResDto> GetCustomerService(CommonRequestDto<CustomerReqDto> commonRequest)
+        //public CommonResponseDto<CustomerResDto> GetCustomerService(CommonRequestDto<CustomerReqDto> commonRequest)
+        //{
+        //    var imageurl = _configuration.GetValue<string>("ImageURL");
+        //    var response = new CommonResponseDto<CustomerResDto>();
+        //    string proc = "Proc_GetCustomerEdit";
+        //    var queryParameter = new DynamicParameters();
+        //    queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
+
+        //    var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
+
+
+        //    if (res != null && !string.IsNullOrEmpty(res.Image))
+        //    {
+        //        res.ImageUrl = $"{imageurl}{res.Image}";
+        //    }
+        //    response.Data = res;
+        //    return response;
+        //}
+
+        public CommonResponseDto<CustomerResDto> GetCustomerServiceV2(CommonRequestDto<CustomerReqDto> commonRequest)
         {
             var imageurl = _configuration.GetValue<string>("ImageURL");
             var response = new CommonResponseDto<CustomerResDto>();
@@ -261,15 +280,17 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
             queryParameter.Add("@CustomerGuid", commonRequest.Data.CustomerGuid);
 
-            var res =  DBHelperDapper.GetResponseModel<CustomerResDto>(proc, queryParameter);
-            if (res != null && !string.IsNullOrEmpty(res.Image))
+            
+           // var res = DBHelperDapper.GetModelFromJson<CustomerResDto>(proc, queryParameter);
+            var res = DBHelperDapper.GetSingleWithJsonColumn<CustomerResDto, customerPlotDetailV2>(proc, queryParameter);
+
+            if (res != null && !string.IsNullOrEmpty(res.Data.Image))
             {
-                res.ImageUrl = $"{imageurl}{res.Image}";
+                res.Data.ImageUrl = $"{imageurl}{res.Data.Image}";
             }
-            response.Data = res;
+            response = res;
             return response;
         }
-
         public CommonResponseDto<ValidationMessageDto> CustomerPlotCancelService(CommonRequestDto<CustomerPlotCancelReqDto> commonRequest)
         {
             var response = new CommonResponseDto<ValidationMessageDto>();
