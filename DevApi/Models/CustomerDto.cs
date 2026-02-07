@@ -83,6 +83,7 @@ namespace DevApi.Models
     public bool? IsActive { get; set; }
     public string? ImageUrl { get; set; }
     public long? CustomerPlotId { get; set; }
+    public long? CustomerId { get; set; }
     public int PlotStatus { get; set; }
 }
 
