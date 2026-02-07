@@ -1,10 +1,12 @@
-﻿using Dapper;
+﻿using Azure;
+using Dapper;
 using DevApi.Models.Common;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -125,7 +127,78 @@ namespace MyApp.Models
                 return default;
             }
         }
-        public static List<T> GetListWithJsonColumn<T, TItem>(
+        //        public static List<T> GetListWithJsonColumn<T, TItem>(
+        //    string spName,
+        //    DynamicParameters p,
+        //    string jsonColumnName = "JsonData"
+        //)
+        //    where T : new()
+        //        {
+        //            using (SqlConnection con = new SqlConnection(connection()))
+        //            {
+        //                con.Open();
+
+        //                // Read all rows as dynamic
+        //                var rows = con.Query(
+        //                    spName,
+        //                    p,
+        //                    commandType: CommandType.StoredProcedure
+        //                ).ToList();
+
+
+
+
+        //                List<T> result = new List<T>();
+
+
+        //                foreach (var row in rows)
+        //                {
+        //                    // Convert row to dictionary
+        //                    var dict = (IDictionary<string, object>)row;
+
+        //                    // Create parent object
+        //                    T parent = new T();
+
+        //                    // Fill normal columns
+        //                    foreach (var prop in typeof(T).GetProperties())
+        //                    {
+        //                        if (dict.ContainsKey(prop.Name) && dict[prop.Name] != null)
+        //                        {
+        //                            var convertedValue = SafeConvert(dict[prop.Name], prop.PropertyType);
+        //                            prop.SetValue(parent, convertedValue);
+        //                        }
+        //                    }
+
+
+        //                    // Handle JSON column
+        //                    if (dict.ContainsKey(jsonColumnName) && dict[jsonColumnName] != null)
+        //                    {
+        //                        var json = dict[jsonColumnName].ToString();
+
+        //                        if (!string.IsNullOrEmpty(json))
+        //                        {
+        //                            var listData =
+        //                                JsonConvert.DeserializeObject<List<TItem>>(json);
+
+        //                            var listProp = typeof(T).GetProperties()
+        //                                .FirstOrDefault(x => x.PropertyType == typeof(List<TItem>));
+
+        //                            if (listProp != null)
+        //                                listProp.SetValue(parent, listData);
+        //                        }
+        //                    }
+
+
+
+        //                    result.Add(parent);
+        //                }
+
+        //                return result;
+        //            }
+        //        }
+
+
+        public static CommonResponseDto<List<T>> GetListWithJsonColumn<T, TItem>(
     string spName,
     DynamicParameters p,
     string jsonColumnName = "JsonData"
@@ -136,53 +209,66 @@ namespace MyApp.Models
             {
                 con.Open();
 
-                // Read all rows as dynamic
-                var rows = con.Query(
+                var result = new CommonResponseDto<List<T>>
+                {
+                    Data = new List<T>(),
+                    Flag = 1,
+                    Message = "Success"
+                };
+
+                using (var multi = con.QueryMultiple(
                     spName,
                     p,
                     commandType: CommandType.StoredProcedure
-                ).ToList();
-
-                List<T> result = new List<T>();
-
-                foreach (var row in rows)
+                ))
                 {
-                    // Convert row to dictionary
-                    var dict = (IDictionary<string, object>)row;
+                    // 🔹 Result set 1
+                    var rows = multi.Read().ToList();
 
-                    // Create parent object
-                    T parent = new T();
-
-                    // Fill normal columns
-                    foreach (var prop in typeof(T).GetProperties())
+                    foreach (var row in rows)
                     {
-                        if (dict.ContainsKey(prop.Name) && dict[prop.Name] != null)
+                        var dict = (IDictionary<string, object>)row;
+                        T parent = new T();
+
+                        // 🔹 Normal columns
+                        foreach (var prop in typeof(T).GetProperties())
                         {
-                            var convertedValue = SafeConvert(dict[prop.Name], prop.PropertyType);
-                            prop.SetValue(parent, convertedValue);
+                            if (dict.ContainsKey(prop.Name) && dict[prop.Name] != null)
+                            {
+                                var convertedValue = SafeConvert(dict[prop.Name], prop.PropertyType);
+                                prop.SetValue(parent, convertedValue);
+                            }
                         }
+
+                        // 🔹 JSON column
+                        if (dict.ContainsKey(jsonColumnName) && dict[jsonColumnName] != null)
+                        {
+                            var json = dict[jsonColumnName].ToString();
+
+                            if (!string.IsNullOrEmpty(json))
+                            {
+                                var listData = JsonConvert.DeserializeObject<List<TItem>>(json);
+
+                                var listProp = typeof(T).GetProperties()
+                                    .FirstOrDefault(x => x.PropertyType == typeof(List<TItem>));
+
+                                if (listProp != null)
+                                    listProp.SetValue(parent, listData);
+                            }
+                        }
+
+                        // ✅ FIXED
+                        result.Data.Add(parent);
                     }
 
-
-                    // Handle JSON column
-                    if (dict.ContainsKey(jsonColumnName) && dict[jsonColumnName] != null)
+                    // 🔹 Result set 2: paging
+                    if (!multi.IsConsumed)
                     {
-                        var json = dict[jsonColumnName].ToString();
-
-                        if (!string.IsNullOrEmpty(json))
-                        {
-                            var listData =
-                                JsonConvert.DeserializeObject<List<TItem>>(json);
-
-                            var listProp = typeof(T).GetProperties()
-                                .FirstOrDefault(x => x.PropertyType == typeof(List<TItem>));
-
-                            if (listProp != null)
-                                listProp.SetValue(parent, listData);
-                        }
+                        var pageInfo = multi.ReadFirstOrDefault<PageInfoDto>();
+                        result.PageSize = pageInfo?.PageSize ?? 1;
+                        result.PageRecordCount = pageInfo?.PageRecordCount ?? result.Data.Count;
+                        result.TotalRecordCount = pageInfo?.TotalRecordCount ?? result.Data.Count;
                     }
-
-                    result.Add(parent);
                 }
 
                 return result;

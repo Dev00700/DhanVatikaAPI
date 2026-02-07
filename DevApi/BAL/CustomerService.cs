@@ -110,7 +110,7 @@ namespace MyApp.BAL
             }
 
             var res =  DBHelperDapper.GetListWithJsonColumn<CustomerResDtoV2, customerPlotDetailV2>(proc, queryParameter);
-            response.Data = res;
+            response = res;
             return response;
         }
 
