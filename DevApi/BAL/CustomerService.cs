@@ -205,7 +205,16 @@ namespace MyApp.BAL
 
             result.ForEach(x =>
             {
-                x.CustomerPlotPaymentList = JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(x.PaymentDetails);
+                if (!string.IsNullOrWhiteSpace(x.PaymentDetails))
+                {
+                    x.CustomerPlotPaymentList =
+                        JsonConvert.DeserializeObject<List<CustomerPlotPaymentDto>>(x.PaymentDetails);
+                }
+                else
+                {
+                    x.CustomerPlotPaymentList = new List<CustomerPlotPaymentDto>();
+                }
+
                 x.PaymentDetails = null;
             });
 
