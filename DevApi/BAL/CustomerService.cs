@@ -300,5 +300,51 @@ namespace MyApp.BAL
             response.Data = res;
             return response;
         }
+
+        public  CommonResponseDto<ValidationMessagePasswordDto> CheckCustomerEmail(CommonRequestDto<CheckEmailReqDto> commonRequest)
+        {
+            string otp =CommonFunction.GenerateOtp(6);
+            var response = new CommonResponseDto<ValidationMessagePasswordDto>();
+            string proc = "Proc_OTP";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 1);
+            queryParameter.Add("@EmailId", commonRequest.Data.Email);
+            queryParameter.Add("@OTP", otp);
+            var res = DBHelperDapper.GetResponseModel<ValidationMessagePasswordDto>(proc, queryParameter);
+
+            response.Data = res;
+            response.Data.OTP = otp;
+            return response;
+        }
+        public CommonResponseDto<ValidationMessagePasswordDto> OtpValidateSerivce(CommonRequestDto<CheckEmailReqDto> commonRequest)
+        {
+           
+            var response = new CommonResponseDto<ValidationMessagePasswordDto>();
+            string proc = "Proc_OTP";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 2);
+            queryParameter.Add("@EmailId", commonRequest.Data.Email);
+            queryParameter.Add("@OTP", commonRequest.Data.OTP);
+            var res = DBHelperDapper.GetResponseModel<ValidationMessagePasswordDto>(proc, queryParameter);
+            response.Data = res;
+            return response;
+        }
+
+        public CommonResponseDto<ValidationMessagePasswordDto> PasswordChange(CommonRequestDto<PasswordChange> commonRequest)
+        {
+         
+            var response = new CommonResponseDto<ValidationMessagePasswordDto>();
+            string proc = "Proc_OTP";
+            var queryParameter = new DynamicParameters();
+            queryParameter.Add("@ProcId", 3);
+            queryParameter.Add("@EmailId", commonRequest.Data.Email);
+            queryParameter.Add("@Password", commonRequest.Data.Password);
+         
+            var res = DBHelperDapper.GetResponseModel<ValidationMessagePasswordDto>(proc, queryParameter);
+
+            response.Data = res;
+          
+            return response;
+        }
     }
 }

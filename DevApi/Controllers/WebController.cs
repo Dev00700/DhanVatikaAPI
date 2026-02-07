@@ -5,6 +5,7 @@ using DevApi.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace DevApi.Controllers
 {
     [ApiController]
@@ -12,10 +13,12 @@ namespace DevApi.Controllers
     public class WebController : Controller
     {
         private readonly PlotService plotService;
+    private readonly CustomerService customerService;
 
-        public WebController(PlotService aplotService)
+        public WebController(PlotService aplotService, CustomerService customerService)
         {
             plotService = aplotService;
+            this.customerService = customerService;
         }
 
         [HttpPost("GetLocationListService")]
@@ -45,11 +48,25 @@ namespace DevApi.Controllers
         }
 
 
-        //[HttpPost("CheckCusmtomerService")]
-        //public async Task<ActionResult<CommonResponseDto<List<PlotResponseDto>>>> GetHomePlotWeb([FromBody] CommonRequestDto request)
-        //{
-        //    var result = await plotService.GetPlotWebHomeService(request);
-        //    return result;
-        //}
+        [HttpPost("CheckCusmtomerEmailService")]
+        public ActionResult<CommonResponseDto<ValidationMessagePasswordDto>> CheckEmailCusmtomerService([FromBody] CommonRequestDto<CheckEmailReqDto> request)
+        {
+            var result =  customerService.CheckCustomerEmail(request);
+            return result;
+        }
+
+        [HttpPost("ValidateOtpService")]
+        public ActionResult<CommonResponseDto<ValidationMessagePasswordDto>> OtpValidateService([FromBody] CommonRequestDto<CheckEmailReqDto> request)
+        {
+            var result = customerService.OtpValidateSerivce(request);
+            return result;
+        }
+
+        [HttpPost("PasswordChangeService")]
+        public ActionResult<CommonResponseDto<ValidationMessagePasswordDto>> ChangePasswordService([FromBody] CommonRequestDto<PasswordChange> request)
+        {
+            var result = customerService.PasswordChange(request);
+            return result;
+        }
     }
 }

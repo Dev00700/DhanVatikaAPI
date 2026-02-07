@@ -78,6 +78,8 @@ namespace DevApi.Models
     public int? PlotId { get; set; }
     public int? BookingFlag { get; set; }
     public string? PlotName { get; set; }
+    public string? PlotCode { get; set; }
+    public string? SubPlotCode { get; set; }
     public bool? IsActive { get; set; }
     public string? ImageUrl { get; set; }
     public long? CustomerPlotId { get; set; }

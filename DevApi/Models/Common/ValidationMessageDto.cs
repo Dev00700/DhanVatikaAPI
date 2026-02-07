@@ -11,4 +11,10 @@ namespace DevApi.Models.Common
         public int Flag { get; set; }   
         public string Message { get; set; } 
     }
+    public class ValidationMessagePasswordDto
+    {
+        public int Flag { get; set; }
+        public string Message { get; set; }
+        public string? OTP { get; set; }
+    }
 }
