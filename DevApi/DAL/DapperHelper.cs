@@ -420,6 +420,33 @@ namespace MyApp.Models
             return Convert.ChangeType(value, targetType);
         }
 
+        public static async Task<CommonResponseDto<List<T>>> GetWithoutPagedModelList<T>(
+     string spName,
+     DynamicParameters parameters)
+        {
+            var response = new CommonResponseDto<List<T>>
+            {
+                Data = new List<T>(),
+                Flag = 1,
+                Message = "Success"
+            };
+
+            using (SqlConnection objConnection = new SqlConnection(connection()))
+            {
+                await objConnection.OpenAsync();
+
+                var dataList = (await objConnection.QueryAsync<T>(
+                    spName,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                )).ToList();
+
+                response.Data = dataList;
+            }
+
+            return response;
+        }
+
     }
 
 } 

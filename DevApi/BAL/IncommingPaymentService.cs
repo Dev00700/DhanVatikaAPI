@@ -114,6 +114,9 @@ namespace MyApp.BAL
             queryParameter.Add("@Month", commonRequest.Data.Month);
             queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
             queryParameter.Add("@SubCode", commonRequest.Data.SubCode);
+            queryParameter.Add("@CustomerName", commonRequest.Data.CustomerName);
+            queryParameter.Add("@FromDate", commonRequest.Data.FromDate);
+            queryParameter.Add("@ToDate", commonRequest.Data.ToDate);
 
             var res =await DBHelperDapper.GetPagedModelList<IPaymentResponseDto>(proc, queryParameter);
             res.Data.ForEach(x => x.Image = x.Image !=""? imageurl + x.Image:"");
@@ -175,5 +178,36 @@ namespace MyApp.BAL
             response.Message = "Success";
             return response;
         }
+
+        public async Task<CommonResponseDto<List<IPaymentReportDto>>> GetExcelListService(CommonRequestDto<IPaymentReqDto> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<List<IPaymentReportDto>>();
+            string proc = "Proc_IncommingPayment";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 6);
+            queryParameter.Add("@PageNumber", commonRequest.PageSize);
+            queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@PaymentType", commonRequest.Data.PaymentType);
+                queryParameter.Add("@PaymentSource", commonRequest.Data.PaymentSource);
+                queryParameter.Add("@PaymentModeId", commonRequest.Data.PaymentModeId);
+                queryParameter.Add("@PaymentDate", commonRequest.Data.PaymentDate);
+                queryParameter.Add("@Year", commonRequest.Data.Year);
+                queryParameter.Add("@Month", commonRequest.Data.Month);
+                queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+                queryParameter.Add("@SubCode", commonRequest.Data.SubCode);
+                queryParameter.Add("@CustomerName", commonRequest.Data.CustomerName);
+                queryParameter.Add("@FromDate", commonRequest.Data.FromDate);
+                queryParameter.Add("@ToDate", commonRequest.Data.ToDate);
+            }
+
+            var res = await DBHelperDapper.GetWithoutPagedModelList<IPaymentReportDto>(proc, queryParameter);
+           
+            return res;
+        }
+
     }
 }

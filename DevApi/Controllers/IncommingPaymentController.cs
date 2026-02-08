@@ -86,10 +86,18 @@ namespace MyApp.Controllers
         }
 
         [HttpPost("IncommingPaymentCancelService")]
-        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>> IncommingPaymentCancel([FromBody] CommonRequestDto<IPaymentReqDto> request)
+        public async Task<ActionResult<CommonResponseDto<ValidationMessageDto>>>IncommingPaymentCancel([FromBody] CommonRequestDto<IPaymentReqDto> request)
         {
             var payment =  paymentService.GetPaymentCancel(request);
             return payment;
         }
+
+        [HttpPost("GetIPaymentExcelService")]
+        public async Task<ActionResult<CommonResponseDto<List<IPaymentReportDto>>>> GetExcelIPayments(CommonRequestDto<IPaymentReqDto> commonRequest)
+        {
+            var payments = await paymentService.GetExcelListService(commonRequest);
+            return payments;
+        }
+
     }
 }
