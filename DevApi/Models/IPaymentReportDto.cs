@@ -7,7 +7,6 @@ namespace DevApi.Models
 {
     public class IPaymentReportDto
     {
-       
             public string? CustomerName { get; set; }
             public string? PlotCode { get; set; }
             public string? PlotName { get; set; }

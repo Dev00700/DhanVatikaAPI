@@ -88,12 +88,17 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3);
-            queryParameter.Add("@Year", commonRequest.Data.Year);
-            queryParameter.Add("@Month", commonRequest.Data.Month);
-            queryParameter.Add("@ExpenseTitle", commonRequest.Data.ExpenseTitle);
-            queryParameter.Add("@PaymentMode", commonRequest.Data.PaymentModeId);
-            queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
-            queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@Year", commonRequest.Data.Year);
+                queryParameter.Add("@Month", commonRequest.Data.Month);
+                queryParameter.Add("@ExpenseTitle", commonRequest.Data.ExpenseTitle);
+                queryParameter.Add("@PaymentMode", commonRequest.Data.PaymentModeId);
+                queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
+                queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+                queryParameter.Add("@FromDate", commonRequest.Data.FromDate);
+                queryParameter.Add("@ToDate", commonRequest.Data.ToDate);
+            }
 
             var res =await DBHelperDapper.GetPagedModelList<IOutgoingResponseDto>(proc, queryParameter);
             res.Data.ForEach(x => x.Image = x.Image != "" ? imageurl + x.Image : "");
@@ -154,6 +159,32 @@ namespace MyApp.BAL
             response.Flag = 1;
             response.Message = "Success";
             return response;
+        }
+        public async Task<CommonResponseDto<List<OPaymentReportDto>>> GetExcelListService(CommonRequestDto<IOutgoingReqDto> commonRequest)
+        {
+            var imageurl = _configuration.GetValue<string>("ImageURL");
+            var response = new CommonResponseDto<List<OPaymentReportDto>>();
+            string proc = "Proc_OutgoingPayment";
+            var queryParameter = new DynamicParameters();
+
+            queryParameter.Add("@ProcId", 6);
+            queryParameter.Add("@PageNumber", commonRequest.PageSize);
+            queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@Year", commonRequest.Data.Year);
+                queryParameter.Add("@Month", commonRequest.Data.Month);
+                queryParameter.Add("@ExpenseTitle", commonRequest.Data.ExpenseTitle);
+                queryParameter.Add("@PaymentMode", commonRequest.Data.PaymentModeId);
+                queryParameter.Add("@ReferenceNo", commonRequest.Data.ReferenceNo);
+                queryParameter.Add("@PlotCode", commonRequest.Data.PlotCode);
+                queryParameter.Add("@FromDate", commonRequest.Data.FromDate);
+                queryParameter.Add("@ToDate", commonRequest.Data.ToDate);
+            }
+
+            var res = await DBHelperDapper.GetWithoutPagedModelList<OPaymentReportDto>(proc, queryParameter);
+
+            return res;
         }
     }
 }

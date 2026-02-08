@@ -60,5 +60,12 @@ namespace MyApp.Controllers
             var result = await outgoingPaymentService.UpdatePaymentService(request);
             return result;
         }
+
+        [HttpPost("GetOPaymentExcelService")]
+        public async Task<ActionResult<CommonResponseDto<List<OPaymentReportDto>>>> GetExcelIPayments(CommonRequestDto<IOutgoingReqDto> commonRequest)
+        {
+            var payments = await outgoingPaymentService.GetExcelListService(commonRequest);
+            return payments;
+        }
     }
 }

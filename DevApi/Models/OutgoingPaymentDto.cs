@@ -30,6 +30,8 @@ namespace DevApi.Models
         public int? Year { get; set; }
         public int? Month { get; set; }
         public string? PlotCode { get; set; }
+        public DateTime? FromDate { get; set; }
+        public DateTime? ToDate { get; set; }
     }
     public class IOutgoingResponseDto : ValidationMessageDto
     {

@@ -1,0 +1,49 @@
+﻿using System;
+using DevApi.Models.Common;
+using DevApi.Models.Enums;
+using MyApp.Models.Common;
+namespace DevApi.Models
+{
+    public class OPaymentReportDto
+    {
+     
+            public string? ExpenseCategoryName { get; set; }
+            public string? ExpenseTitle { get; set; }
+            public DateTime? ExpenseDate { get; set; }
+            public decimal? Amount { get; set; }
+            public int? PaymentModeId { get; set; }
+            public string? ReferenceNo { get; set; }
+            public string? PartyName { get; set; }
+            public string? Remarks { get; set; }
+            public int? ApproveStatus { get; set; }
+            public int? ApproveBy { get; set; }
+            public string? AdminName { get; set; }
+            
+            public string? AdminApproveDate { get; set; }
+            public string? AdminApproveRemarks { get; set; }
+            public int? ApproveStatusF { get; set; }
+            public string? SuperAdminName { get; set; }
+            public string? SuperAdminApproveDate { get; set; }
+            public string? SuperAdminApproveRemarks { get; set; }
+            public string? PaymentMode { get; set; }
+            public string? PlotCode { get; set; }
+        public string AdminApprover
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(ApprovalStatus), ApproveStatus)
+                    ? ((ApprovalStatus)ApproveStatus).ToString()
+                    : string.Empty;
+            }
+        }
+        public string SuperAdminApprover
+        {
+            get
+            {
+                return Enum.IsDefined(typeof(ApprovalStatus), ApproveStatusF)
+                    ? ((ApprovalStatus)ApproveStatusF).ToString()
+                    : string.Empty;
+            }
+        }
+    }
+}
