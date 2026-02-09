@@ -27,6 +27,7 @@ namespace DevApi.Models
             public string? AdminApproveRemarks { get; set; }
             public int? ApproveStatusF { get; set; }
             public string? SuperAdminName { get; set; }
+            public string? AdminName { get; set; }
             public string? SuperAdminApproveDate { get; set; }
             public string? SuperAdminApproveRemarks { get; set; }
 
