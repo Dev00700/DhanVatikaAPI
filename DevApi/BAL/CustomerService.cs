@@ -376,5 +376,22 @@ namespace MyApp.BAL
           
             return response;
         }
+
+        public CommonResponseDto<ValidationMessageDto> UpdateEmiDateService(CommonRequestDto<UpdateEmiDateReq> commonRequest)
+        {
+            var response = new CommonResponseDto<ValidationMessageDto>();
+            string proc = "Proc_UpdateEmiDate";
+            var queryParameter = new DynamicParameters();
+          
+            queryParameter.Add("@CustomerId", commonRequest.Data.CustomerId);
+            queryParameter.Add("@Date", commonRequest.Data.Date);
+            queryParameter.Add("@CustomerPaymentId", commonRequest.Data.CustomerPaymentId);
+          
+
+            var res = DBHelperDapper.GetResponseModel<ValidationMessageDto>(proc, queryParameter);
+
+            response.Data = res;
+            return response;
+        }
     }
 }

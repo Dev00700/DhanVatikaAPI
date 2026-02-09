@@ -237,6 +237,7 @@ namespace DevApi.Models
         public string newremarks { get; set; }
         public bool ReceiptFlag { get; set; }
         public Guid? IPaymentGuid { get; set; }
+        public string? PaymentDate { get; set; }
     }
 
     public class CustomerReceiptReqDto
@@ -273,6 +274,13 @@ namespace DevApi.Models
         public long CustomerId { get; set; }
         public long PlotId { get; set; }
         public int Flag { get; set; } // when flag is 1 then add plot to customer and when flag is 2 then remove plot from customer
+    }
+
+    public class UpdateEmiDateReq
+    {
+        public long CustomerPaymentId { get; set; }
+        public DateTime Date { get; set; }
+        public long CustomerId{ get; set; }
     }
 }
 

@@ -114,5 +114,11 @@ namespace MyApp.Controllers
             var result = customerService.CustomerAddMultiplePlotService(commonRequest);
             return result;
         }
+        [HttpPost("UpdateEmiDateService")]
+        public ActionResult<CommonResponseDto<ValidationMessageDto>> EmiDateUpdateService(CommonRequestDto<UpdateEmiDateReq> commonRequest)
+        {
+            var result = customerService.UpdateEmiDateService(commonRequest);
+            return result;
+        }
     }
 }
