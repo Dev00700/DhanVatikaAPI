@@ -73,19 +73,20 @@ namespace DevApi.Models
 
 
     }
-    public class customerPlotDetailV2 
+    public class customerPlotDetailV2
     {
-    public int? PlotId { get; set; }
-    public int? BookingFlag { get; set; }
-    public string? PlotName { get; set; }
-    public string? PlotCode { get; set; }
-    public string? SubPlotCode { get; set; }
-    public bool? IsActive { get; set; }
-    public string? ImageUrl { get; set; }
-    public long? CustomerPlotId { get; set; }
-    public long? CustomerId { get; set; }
- 
-    public int PlotStatus { get; set; }
-}
+        public int? PlotId { get; set; }
+        public int? BookingFlag { get; set; }
+        public string? PlotName { get; set; }
+        public string? PlotCode { get; set; }
+        public string? SubPlotCode { get; set; }
+        public bool? IsActive { get; set; }
+        public string? ImageUrl { get; set; }
+        public long? CustomerPlotId { get; set; }
+        public long? CustomerId { get; set; }
+
+        public int PlotStatus { get; set; }
+        public bool IsTokenAmount { get; set; }
+    }
 
 }

@@ -204,6 +204,7 @@ namespace DevApi.Models
         public string unitname { get; set; }
 
         public DateTime CreatedOn { get; set; }
+        public string PlotCode { get; set; }
         
     }
 
