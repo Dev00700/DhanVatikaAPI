@@ -131,11 +131,14 @@ namespace MyApp.BAL
             var queryParameter = new DynamicParameters();
 
             queryParameter.Add("@ProcId", 3);
-            queryParameter.Add("@PlotName",commonRequest.Data.PlotName);
-            queryParameter.Add("@Plot_Code", commonRequest.Data.Plot_Code);
-            queryParameter.Add("@SubPlotCode", commonRequest.Data.SubPlotCode);
-            queryParameter.Add("@PlotType", commonRequest.Data.PlotType);
-            queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
+            if (commonRequest.Data != null)
+            {
+                queryParameter.Add("@PlotName", commonRequest.Data.PlotName);
+                queryParameter.Add("@Plot_Code", commonRequest.Data.Plot_Code);
+                queryParameter.Add("@SubPlotCode", commonRequest.Data.SubPlotCode);
+                queryParameter.Add("@PlotType", commonRequest.Data.PlotType);
+                queryParameter.Add("@LocationId", commonRequest.Data.LocationId);
+            }
             queryParameter.Add("@PageNumber", commonRequest.PageSize);
             queryParameter.Add("@PageRecordCount", commonRequest.PageRecordCount);
             var res = await DBHelperDapper.GetPagedModelList<PlotResponseDto>(proc, queryParameter);
