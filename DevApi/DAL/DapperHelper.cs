@@ -20,7 +20,7 @@ namespace MyApp.Models
         {
             try
             {
-                return connectionString = "Server=68.178.164.44,1437\\DIVIKA;Database=Dhanvatika;User Id=sa;Password=M@tpuchbha!@213$;TrustServerCertificate=true;";
+                return connectionString = "Server=68.178.164.44,1437\\DIVIKA;Database=DhanvatikaTest;User Id=sa;Password=M@tpuchbha!@213$;TrustServerCertificate=true;";
             }
             catch (Exception)
             {
